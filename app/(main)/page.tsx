@@ -1,4 +1,4 @@
-import PagesHome from "@/src/pages/home";
+import PagesHome from "@/src/sections/home";
 import Image from "next/image";
 
 export default function Home() {
