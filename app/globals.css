@@ -10,13 +10,16 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-instrument-serif: var(--font-instrument-serif);
+  --font-pacifico: var(--font-pacifico);
 
 
 
 
   /* costume color */
 
-  --color-primary: #3A4F39;
+  --color-primary: #c2410d;
+  --color-secondary: #f4f1ec;
   /* Border Radius */
   --radius-8d: calc(9 / var(--bw) * 100vw);
   --radius-10d: calc(10 / var(--bw) * 100vw);
