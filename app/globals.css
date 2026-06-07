@@ -12,7 +12,9 @@
   --font-mono: var(--font-geist-mono);
   --font-instrument-serif: var(--font-instrument-serif);
   --font-pacifico: var(--font-pacifico);
-
+  --container-8xl: 88rem;
+  --container-9xl: 96rem;
+  --container-10xl: 104rem;
 
 
 
@@ -51,6 +53,26 @@
   --text-28d: calc((28 / var(--bw) * 100vw));
 
 }
+
+:root {
+  --bw: 1280;
+  --spacing: calc(100vw / var(--bw));
+  --navbar: 1000;
+}
+
+@media (max-width: 767.98px) {
+  :root {
+    --bw: 375;
+  }
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+  :root {
+    --bw: 480;
+  }
+}
+
+
 
 @media (prefers-color-scheme: dark) {
   :root {

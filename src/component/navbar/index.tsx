@@ -8,26 +8,18 @@ import { useEffect, useState } from "react";
 export default function ComponentsNavbar() {
     const [buttonActive, setButtonActive] = useState<boolean>(false);
     useEffect(() => {
-        // Fungsi untuk mengecek lebar layar
         const handleResize = () => {
-            // window.innerWidth membaca ukuran lebar layar saat ini
             if (window.innerWidth <= 700) {
-                setButtonActive(false); // Paksa tertutup/false jika layar 700px ke bawah
+                setButtonActive(false);
             }
         };
-
-        // Panggil fungsinya sekali saat komponen pertama kali dimuat
         handleResize();
-
-        // Pasang "pendengar" (event listener) setiap kali ukuran layar ditarik/diubah
         window.addEventListener("resize", handleResize);
-
-        // Cleanup: Hapus event listener saat komponen tidak lagi digunakan agar tidak memori bocor (memory leak)
         return () => window.removeEventListener("resize", handleResize);
     }, []);
     return (
         <div className="bg-secondary border-b border-gray-200">
-            <div className="max-w-7xl mx-auto p-6 flex items-center justify-between w-full ">
+            <div className="max-w-10xl mx-auto p-6 flex items-center justify-between w-full ">
                 <div className="flex gap-3 items-center">
                     <div className="flex items-center justify-center">
                         <ComponentsLiveIndicator />
