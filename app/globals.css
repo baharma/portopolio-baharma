@@ -5,7 +5,13 @@
   --foreground: #171717;
 }
 
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 @theme inline {
+  --animate-marquee: marquee 25s linear infinite;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -22,6 +28,7 @@
 
   --color-primary: #c2410d;
   --color-secondary: #f4f1ec;
+  --color-tertiary: #ece7df;
   /* Border Radius */
   --radius-8d: calc(9 / var(--bw) * 100vw);
   --radius-10d: calc(10 / var(--bw) * 100vw);
@@ -50,6 +57,7 @@
   --text-64d: calc((64 / var(--bw) * 100vw));
   --text-64d--letter-spacing: calc((-0.05 * 64 / var(--bw)) * 100vw);
   --text-72d: calc((72 / var(--bw) * 100vw));
+  --text-80d: calc((80 / var(--bw) * 100vw));
   --text-28d: calc((28 / var(--bw) * 100vw));
 
 }
@@ -71,8 +79,6 @@
     --bw: 480;
   }
 }
-
-
 
 @media (prefers-color-scheme: dark) {
   :root {

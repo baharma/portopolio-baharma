@@ -9,7 +9,7 @@ export default function ComponentsNavbar() {
     const [buttonActive, setButtonActive] = useState<boolean>(false);
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth <= 700) {
+            if (window.innerWidth <= 740) {
                 setButtonActive(false);
             }
         };
@@ -19,11 +19,11 @@ export default function ComponentsNavbar() {
     }, []);
     return (
         <div className="bg-secondary border-b border-gray-200">
-            <div className="max-w-10xl mx-auto p-6 flex items-center justify-between w-full ">
+            <div className=" md:max-w-6xl lg:max-w-8xl xl:max-w-10xl mx-auto p-6 flex items-center justify-between w-full ">
                 <div className="flex gap-3 items-center">
                     <div className="flex items-center justify-center">
                         <ComponentsLiveIndicator />
-                        <div className="ml-2 text-xl  font-instrument-serif ">
+                        <div className="ml-2 text-14d  font-instrument-serif ">
                             BAHARMA.MY.ID
                         </div>
                     </div>
@@ -35,11 +35,11 @@ export default function ComponentsNavbar() {
                     <ComponentsButtonUnderline title="Contacts" />
                 </div>
                 <div className="hidden md:flex items-center gap-3 ">
-                    <button className="px-4 py-2 bg-primary text-white rounded-2xl hover:bg-primary/90 transition-colors font-sans">
+                    <button className="px-4 py-2 bg-primary text-white rounded-2xl hover:bg-primary/90 transition-colors font-sans text-10d">
                         Download CV
                     </button>
                 </div>
-                <div className=" lg:hidden flex items-center gap-3 ">
+                <div className=" md:hidden flex items-center gap-3 ">
                     <button className="px-4 py-2  cursor-pointer  rounded-2xl" onClick={() => setButtonActive(!buttonActive)}>
                         {
                             buttonActive ? (
@@ -52,7 +52,7 @@ export default function ComponentsNavbar() {
                 </div>
             </div>
             {buttonActive && (
-                <div className="lg:hidden relative top-full left-0 w-full bg-secondary border-b border-gray-200 shadow-lg flex flex-col p-6 gap-6">
+                <div className="md:hidden relative top-full left-0 w-full bg-secondary border-b border-gray-200 shadow-lg flex flex-col p-6 gap-6">
                     <div className="flex flex-col gap-4">
                         <ComponentsButtonUnderline title="Work History" />
                         <ComponentsButtonUnderline title="About" />
