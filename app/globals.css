@@ -6,8 +6,13 @@
 }
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @theme inline {
@@ -29,6 +34,7 @@
   --color-primary: #c2410d;
   --color-secondary: #f4f1ec;
   --color-tertiary: #ece7df;
+  --color-quaternary: #16140f;
   /* Border Radius */
   --radius-8d: calc(9 / var(--bw) * 100vw);
   --radius-10d: calc(10 / var(--bw) * 100vw);
