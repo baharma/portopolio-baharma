@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm run dev      # start dev server (Turbopack) at http://localhost:3000
+npm run dev      # start dev server at http://localhost:3000
 npm run build    # production build
 npm run lint     # run ESLint (eslint-config-next core-web-vitals + typescript)
 ```
@@ -20,17 +20,20 @@ This is a **Next.js 16 App Router** portfolio site using React 19, Tailwind CSS 
 
 **Routing — two layout layers:**
 - [app/layout.tsx](app/layout.tsx) — root HTML shell, loads all fonts, applies global CSS
-- [app/(main)/layout.tsx](app/(main)/layout.tsx) — route group wrapping all visible pages; injects `<ComponentsNavbar>`
+- [app/(main)/layout.tsx](app/(main)/layout.tsx) — route group wrapping all visible pages; injects `<ComponentsNavbar>` and `<ComponentsFooter>`
 - [app/(main)/page.tsx](app/(main)/page.tsx) — the only route so far; renders the home section component
 
 **Source code lives under `src/`**, not inside `app/`:
 - `src/sections/` — full-page section components (one folder per route concept, e.g. `home/`)
-- `src/component/` — reusable UI pieces (`navbar/`, `footer/`, `swite/`)
+- `src/component/` — reusable UI pieces (`navbar/`, `footer/`, etc.)
 - `src/layout/` — shared layout wrappers
+- `src/uitls/` — utilities (note: intentional typo in folder name; keep it as-is)
 
 > **Important:** Do NOT name any folder under `src/` as `pages/` — Next.js would misdetect it as a Pages Router directory and throw a conflict error with the App Router.
 
 **Path alias:** `@/` maps to the repo root, so `src/` files are imported as `@/src/…`.
+
+**Component naming convention:** PascalCase prefixed by location — `ComponentsNavbar`, `SectionsHomeMainHero`, `SectionsHomeCardProject`. Follow this pattern when adding new components.
 
 ## Styling
 
@@ -42,8 +45,22 @@ Custom design tokens in `@theme inline`:
 |---|---|
 | `--color-primary` | `#c2410d` |
 | `--color-secondary` | `#f4f1ec` |
+| `--color-tertiary` | `#ece7df` |
+| `--color-quaternary` | `#16140f` |
 
-Viewport-relative sizing uses `--bw` as the base width divisor. Pattern: `calc(N / var(--bw) * 100vw)`. Available as `text-<n>d` and `radius-<n>d` Tailwind utilities (e.g. `text-16d`, `radius-8d`).
+Container tokens: `--container-8xl` (88rem), `--container-9xl` (96rem), `--container-10xl` (104rem).
+
+Animation: `animate-marquee` — infinite horizontal scroll at 25s, used for the `text-move` section.
+
+**Viewport-relative sizing** uses `--bw` as the base width divisor with three breakpoints:
+
+| Breakpoint | `--bw` |
+|---|---|
+| `≥768px landscape` (desktop) | `1280` |
+| `768px portrait` (tablet) | `480` |
+| `<768px` (mobile) | `375` |
+
+Pattern: `calc(N / var(--bw) * 100vw)`. Available as `text-<n>d` and `radius-<n>d` Tailwind utilities (e.g. `text-16d`, `radius-8d`). `--spacing` is set to `calc(100vw / var(--bw))` for use in manual `calc()` expressions.
 
 Dark mode uses `prefers-color-scheme` media query, not a class toggle.
 

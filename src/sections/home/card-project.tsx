@@ -3,19 +3,28 @@
 import ComponentsButton from "@/src/component/button";
 import ComponentsCardProject from "@/src/component/card-project";
 import ComponentsLine from "@/src/component/line";
+import { gsapShowTextOnLeft, gsapShowTextOnRight, gsapShowTextOnTop } from "@/src/uitls/gsapUtils";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
 
 export default function SectionsHomeCardProject() {
+    const containerRef = useRef(null);
+    useGSAP(() => {
+        gsapShowTextOnTop();
+        gsapShowTextOnRight();
+        gsapShowTextOnLeft();
+    }, { scope: containerRef });
     return (
-        <div className="bg-secondary">
+        <div ref={containerRef} className="bg-secondary">
             <div className="md:max-w-6xl lg:max-w-8xl xl:max-w-10xl mx-auto">
                 <div className="flex gap-4 items-center  font-instrument-serif italic text-31d pt-20">
-                    <span className="">Project,</span> <span className=" text-primary">recent</span>
+                    <span className="show-text-on-left">Project,</span> <span className=" text-primary show-text-on-right">recent</span>
                 </div>
-                <p className=" text-gray-500 font-sans text-8d mb-20 w-full md:w-400">
+                <p className=" text-gray-500 font-sans text-8d mb-20 w-full md:w-400 show-text-on-top">
                     to many projects, to many works, to many experiences, to many stories, to many things that i want to share, but i don't have time to write it all here. so if you want to see my project, you can visit my github or linkedin. or you can contact me and i will share it with you. thank you for visiting my portfolio.
                 </p>
 
-                <div className="border border-gray-200 rounded-2xl p-6 bg-white">
+                <div className="border border-gray-200 rounded-2xl p-6 bg-white show-text-on-top">
                     <ComponentsCardProject
                         tags={["Featured", "E-Commerce"]}
                         tagline="Where homes feel alive"
@@ -28,7 +37,7 @@ export default function SectionsHomeCardProject() {
                     />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                    <div className="border border-gray-200 rounded-2xl p-6 bg-white">
+                    <div className="border border-gray-200 rounded-2xl p-6 bg-white show-text-on-left">
                         <ComponentsCardProject
                             tags={["Featured", "E-Commerce"]}
                             tagline="Where homes feel alive"
@@ -40,7 +49,7 @@ export default function SectionsHomeCardProject() {
                             caseStudyUrl="/projects/terraform"
                         />
                     </div>
-                    <div className="border border-gray-200 rounded-2xl p-6 bg-white">
+                    <div className="border border-gray-200 rounded-2xl p-6 bg-white show-text-on-right">
                         <ComponentsCardProject
                             tags={["Featured", "E-Commerce"]}
                             tagline="Where homes feel alive"
