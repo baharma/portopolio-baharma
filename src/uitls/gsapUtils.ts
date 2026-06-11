@@ -1,46 +1,52 @@
 import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 
+gsap.registerPlugin(ScrollTrigger)
 
 export const gsapShowTextOnTop = () => {
-    gsap.from(".show-text-on-top", {
-        y: -50,
-        opacity: 0,
-        duration: 1.5,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: {
-            trigger: ".show-text-on-top",
-            start: "top top",
-        }
+    gsap.utils.toArray<Element>(".show-text-on-top").forEach((el) => {
+        gsap.from(el, {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+                once: true,
+            },
+        })
     })
 }
 
-
-
 export const gsapShowTextOnRight = () => {
-    gsap.from(".show-text-on-right", {
-        x: 50,
-        opacity: 0,
-        duration: 1.5,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: {
-            trigger: ".show-text-on-right",
-            start: "top top",
-        }
+    gsap.utils.toArray<Element>(".show-text-on-right").forEach((el) => {
+        gsap.from(el, {
+            x: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+                once: true,
+            },
+        })
     })
 }
 
 export const gsapShowTextOnLeft = () => {
-    gsap.from(".show-text-on-left", {
-        x: -50,
-        opacity: 0,
-        duration: 1.5,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: {
-            trigger: ".show-text-on-left",
-            start: "top top",
-        }
+    gsap.utils.toArray<Element>(".show-text-on-left").forEach((el) => {
+        gsap.from(el, {
+            x: -50,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+                once: true,
+            },
+        })
     })
-}   
+}

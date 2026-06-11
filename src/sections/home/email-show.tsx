@@ -1,3 +1,8 @@
+"use client"
+import { gsapShowTextOnLeft, gsapShowTextOnRight, gsapShowTextOnTop } from "@/src/uitls/gsapUtils";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useRef } from "react";
 import { GrSubtract } from "react-icons/gr";
 
 const contacts = [
@@ -8,26 +13,39 @@ const contacts = [
 ];
 
 export default function SectionsHomeEmailShow() {
+    const containerRef = useRef(null);
+
+    useGSAP(() => {
+        gsapShowTextOnTop()
+        const items = gsap.utils.toArray<Element>(".box-item");
+        gsap.from(items, {
+            opacity: 0,
+            y: 30,
+            duration: 1.5,
+            stagger: 0.1,
+            ease: "power3.out",
+            clearProps: "opacity,transform",
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top 80%",
+                once: true,
+            },
+        })
+
+    }, { scope: containerRef });
     return (
-        <div className="bg-secondary">
+        <div className="bg-secondary" ref={containerRef}>
             <div className="md:max-w-6xl lg:max-w-8xl xl:max-w-10xl mx-auto py-20 px-10">
-
-                {/* label */}
-                <div className="flex items-center gap-4 mb-10">
-                    <GrSubtract className="text-gray-500 w-6 h-6" />
-                    <span className="text-8d font-mono text-gray-500">04 — Contact</span>
-                </div>
-
                 {/* big heading */}
                 <div className="font-instrument-serif text-80d leading-none flex flex-col">
-                    <span className="text-gray-900">{"Let's build"}</span>
-                    <span className="text-gray-900">
+                    <span className="text-gray-900 show-text-on-top">{"Let's build"}</span>
+                    <span className="text-gray-900 show-text-on-top">
                         {"something "}
                         <span className="italic text-primary">good.</span>
                     </span>
                     <a
                         href="mailto:bagusaditya1899@gmail.com"
-                        className="text-gray-900 hover:text-primary transition-colors duration-300 cursor-pointer break-all"
+                        className="text-gray-900 hover:text-primary transition-colors duration-300 cursor-pointer break-all show-text-on-top"
                     >
                         bagusaditya1899@gmail.com
                     </a>
@@ -39,7 +57,7 @@ export default function SectionsHomeEmailShow() {
                 {/* contact columns */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                     {contacts.map(({ label, value, href }) => (
-                        <div key={label} className="flex flex-col gap-2">
+                        <div key={label} className="flex flex-col gap-2 box-item" >
                             <span className="text-xs font-mono text-gray-400 tracking-widest uppercase">
                                 {label}
                             </span>

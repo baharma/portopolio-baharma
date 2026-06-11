@@ -1,7 +1,12 @@
+"use client"
 import ComponentsLine from "@/src/component/line";
 import GradientImage from "@/src/component/gradient-image";
 import { GrSubtract } from "react-icons/gr";
 import { HiArrowRight } from "react-icons/hi";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+
+import gsap from "gsap";
 
 type BlogPost = {
     slug: string;
@@ -53,19 +58,49 @@ const posts: BlogPost[] = [
 ];
 
 export default function SectionsHomeBlogs() {
+    const containerRef = useRef(null);
+
+    useGSAP(() => {
+
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top 80%",
+                once: true,
+            }
+        })
+            .from(".show-text-on-left", { x: -30, opacity: 0, duration: 0.6, stagger: 0.15, ease: "power3.out", clearProps: "opacity,transform" })
+            .from(".show-text-on-right", { x: 30, opacity: 0, duration: 0.6, ease: "power3.out", clearProps: "opacity,transform" }, "-=0.3");
+
+        const items = gsap.utils.toArray<Element>(".box-item");
+        gsap.from(items, {
+            opacity: 0,
+            y: 30,
+            duration: 1.5,
+            stagger: 0.1,
+            ease: "power3.out",
+            clearProps: "opacity,transform",
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top 80%",
+                once: true,
+            },
+        })
+
+    }, { scope: containerRef });
     return (
-        <div className="bg-secondary">
+        <div className="bg-secondary" ref={containerRef}>
             <div className="md:max-w-6xl lg:max-w-8xl xl:max-w-10xl mx-auto py-20 px-10">
                 {/* header */}
                 <div className="flex items-center justify-between">
                     <div className="space-y-6">
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-4 show-text-on-left">
                             <GrSubtract className="text-gray-500 w-6 h-6" />
                             <span className="text-8d font-mono text-gray-500">Writing</span>
                         </div>
-                        <div className="flex gap-4 items-center font-instrument-serif italic text-31d">
-                            <span>Thoughts I</span>
-                            <span className="text-primary">wrote down.</span>
+                        <div className="flex gap-4 items-center font-instrument-serif italic text-31d ">
+                            <span className="show-text-on-left">Thoughts I</span>
+                            <span className="text-primary show-text-on-right">wrote down.</span>
                         </div>
                     </div>
 
@@ -81,7 +116,7 @@ export default function SectionsHomeBlogs() {
                 {/* list */}
                 <div className="mt-12">
                     {posts.map((post) => (
-                        <div key={post.slug}>
+                        <div key={post.slug} className="box-item">
                             <ComponentsLine />
                             <a
                                 href={`/blog/${post.slug}`}

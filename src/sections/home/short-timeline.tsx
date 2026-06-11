@@ -1,20 +1,30 @@
+"use client";
 import ComponentsLine from "@/src/component/line";
+import { gsapShowTextOnLeft, gsapShowTextOnRight, gsapShowTextOnTop } from "@/src/uitls/gsapUtils";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
 import { GrSubtract } from "react-icons/gr";
 
 export default function SectionsHomeShortTimeline() {
+    const containerRef = useRef(null);
+    useGSAP(() => {
+        gsapShowTextOnTop();
+        gsapShowTextOnRight();
+        gsapShowTextOnLeft();
+    }, { scope: containerRef });
     return (
-        <div className="bg-secondary">
+        <div className="bg-secondary" ref={containerRef}>
             <div className="md:max-w-6xl lg:max-w-8xl xl:max-w-10xl mx-auto p-6 mt-10 md:mt-40">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 show-text-on-right">
                     <GrSubtract className="text-gray-500 w-6 h-6" />
                     <span className="text-8d font-mono text-gray-500">
                         Experience - Timeline
                     </span>
                 </div>
                 <div className="flex gap-4 items-center  font-instrument-serif italic text-31d pt-20">
-                    <span className="">A Short</span> <span className=" text-primary">Timeline</span>
+                    <span className="show-text-on-top">A Short</span> <span className="show-text-on-top text-primary">Timeline</span>
                 </div>
-                <div className="flex flex-col gap-9">
+                <div className="flex flex-col gap-9 show-text-on-right">
                     <ComponentsLine />
                     <div className="flex md:flex-row flex-col gap-30 mt-10 justify-between items-center px-10 ">
                         <div className="flex-none font-sans text-10d text-gray-500">
@@ -39,7 +49,7 @@ export default function SectionsHomeShortTimeline() {
                     </div>
                     <ComponentsLine />
                 </div>
-                <div className="flex flex-col gap-9">
+                <div className="flex flex-col gap-9 show-text-on-right">
                     <ComponentsLine />
                     <div className="flex md:flex-row flex-col gap-30 mt-10 justify-between items-center px-10 ">
                         <div className="flex-none font-sans text-10d text-gray-500">
@@ -64,7 +74,7 @@ export default function SectionsHomeShortTimeline() {
                     </div>
                     <ComponentsLine />
                 </div>
-                <div className="flex flex-col gap-9">
+                <div className="flex flex-col gap-9 show-text-on-right">
                     <ComponentsLine />
                     <div className="flex md:flex-row flex-col gap-30 mt-10 justify-between items-center px-10 ">
                         <div className="flex-none font-sans text-10d text-gray-500">
