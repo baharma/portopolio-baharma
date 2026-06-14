@@ -3,19 +3,10 @@
 import ComponentsButton from "@/src/component/button";
 import ComponentsCardProject from "@/src/component/card-project";
 import ComponentsLine from "@/src/component/line";
-import { gsapShowTextOnLeft, gsapShowTextOnRight, gsapShowTextOnTop } from "@/src/uitls/gsapUtils";
-import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
 
 export default function SectionsHomeCardProject() {
-    const containerRef = useRef(null);
-    useGSAP(() => {
-        gsapShowTextOnTop();
-        gsapShowTextOnRight();
-        gsapShowTextOnLeft();
-    }, { scope: containerRef });
     return (
-        <div ref={containerRef} className="bg-secondary">
+        <div className="bg-secondary">
             <div className="md:max-w-6xl lg:max-w-8xl xl:max-w-10xl mx-auto">
                 <div className="flex gap-4 items-center  font-instrument-serif italic text-31d pt-20">
                     <span className="show-text-on-left">Project,</span> <span className=" text-primary show-text-on-right">recent</span>

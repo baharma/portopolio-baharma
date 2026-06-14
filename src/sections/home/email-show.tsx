@@ -1,5 +1,4 @@
 "use client"
-import { gsapShowTextOnLeft, gsapShowTextOnRight, gsapShowTextOnTop } from "@/src/uitls/gsapUtils";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
@@ -16,7 +15,6 @@ export default function SectionsHomeEmailShow() {
     const containerRef = useRef(null);
 
     useGSAP(() => {
-        gsapShowTextOnTop()
         const items = gsap.utils.toArray<Element>(".box-item");
         gsap.from(items, {
             opacity: 0,

@@ -28,6 +28,7 @@ This is a **Next.js 16 App Router** portfolio site using React 19, Tailwind CSS 
 - `src/component/` — reusable UI pieces (`navbar/`, `footer/`, etc.)
 - `src/layout/` — shared layout wrappers
 - `src/uitls/` — utilities (note: intentional typo in folder name; keep it as-is)
+- `src/service/api/` — API layer: `http.ts` creates an axios instance using `NEXT_PUBLIC_API_URL` and optionally adds `Authorization: Bearer` from `API_SECRET_KEY`; `server.ts` is for server-side fetching
 
 > **Important:** Do NOT name any folder under `src/` as `pages/` — Next.js would misdetect it as a Pages Router directory and throw a conflict error with the App Router.
 
@@ -76,3 +77,19 @@ All fonts loaded via `next/font/google` in [app/layout.tsx](app/layout.tsx) and 
 | Pacifico | `--font-pacifico` | `font-pacifico` | weight 400 only, normal only |
 
 Usage: `<h1 className="font-instrument-serif italic">…</h1>`
+
+## Animations
+
+GSAP (`gsap` + `@gsap/react`) with `ScrollTrigger` is the animation system. Utility functions live in [src/uitls/gsapUtils.ts](src/uitls/gsapUtils.ts) and work by selecting CSS class names:
+
+| Class | Effect |
+|---|---|
+| `.show-text-on-top` | fade in + slide up 50px |
+| `.show-text-on-right` | fade in + slide from right 50px |
+| `.show-text-on-left` | fade in + slide from left 50px |
+
+All three trigger at `start: "top 85%"` with `once: true`. Call the relevant utility inside a `useGSAP` hook (from `@gsap/react`) — never call GSAP imperatively outside of it or `useEffect`, since SSR will break.
+
+## Data Fetching
+
+TanStack Query v5 (`@tanstack/react-query`) is the data-fetching layer. Axios is used for HTTP via the factory in `src/service/api/http.ts`. There is no QueryClient provider set up in the app shell yet — add one before creating any `useQuery` hooks.

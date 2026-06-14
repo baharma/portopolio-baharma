@@ -7,6 +7,7 @@ import SectionsHomeTextMove from "./text-move";
 import SectionsHomeToolkit from "./toolkit";
 
 export default function PagesHome() {
+
     return (
         <>
             <SectionsHomeMainHero />

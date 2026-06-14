@@ -12,7 +12,6 @@ import {
 import { IconType } from "react-icons";
 import ComponentsLine from "@/src/component/line";
 import { useRef } from "react";
-import { gsapShowTextOnLeft, gsapShowTextOnRight } from "@/src/uitls/gsapUtils";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
@@ -41,10 +40,6 @@ export default function SectionsHomeToolkit() {
     const containerRef = useRef(null);
 
     useGSAP(() => {
-
-        gsapShowTextOnRight();
-        gsapShowTextOnLeft();
-
         const items = gsap.utils.toArray<Element>(".box-item");
         gsap.from(items, {
             opacity: 0,

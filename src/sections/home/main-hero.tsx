@@ -1,20 +1,20 @@
-"use client";
-
 import GradientImage from "@/src/component/gradient-image";
 import ComponentsLiveIndicator from "@/src/component/live-indicator";
-import { gsapShowTextOnTop } from "@/src/uitls/gsapUtils";
-import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
 import { GrSubtract } from "react-icons/gr";
 
 export default function SectionsHomeMainHero() {
-    const containerRef = useRef(null);
-    useGSAP(() => {
-        gsapShowTextOnTop();
-    }, { scope: containerRef });
+    // const getData = async () => {
+    //     const data = await apiMain()
+    //     console.log(data)
+    //     return data
+    // }
+    // useEffect(() => {
+    //     getData()
+    // }, [getData])
+
 
     return (
-        <div ref={containerRef} className="bg-secondary">
+        <div className="bg-secondary">
             <div className="md:max-w-6xl lg:max-w-8xl xl:max-w-10xl mx-auto p-6 mt-10 md:mt-40">
                 <div className="flex items-center gap-4  show-text-on-top">
                     <GrSubtract className="text-gray-500 w-6 h-6" />

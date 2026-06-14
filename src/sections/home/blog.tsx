@@ -61,17 +61,6 @@ export default function SectionsHomeBlogs() {
     const containerRef = useRef(null);
 
     useGSAP(() => {
-
-        gsap.timeline({
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top 80%",
-                once: true,
-            }
-        })
-            .from(".show-text-on-left", { x: -30, opacity: 0, duration: 0.6, stagger: 0.15, ease: "power3.out", clearProps: "opacity,transform" })
-            .from(".show-text-on-right", { x: 30, opacity: 0, duration: 0.6, ease: "power3.out", clearProps: "opacity,transform" }, "-=0.3");
-
         const items = gsap.utils.toArray<Element>(".box-item");
         gsap.from(items, {
             opacity: 0,
