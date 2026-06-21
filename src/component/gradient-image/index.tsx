@@ -45,12 +45,14 @@ const LightboxPortal = ({
     title,
     onClose,
     lightboxSize = "medium",
+    unoptimized,
 }: {
     src: string | StaticImageData;
     alt: string;
     title?: string;
     onClose: () => void;
     lightboxSize?: "small" | "medium" | "large" | "fullscreen";
+    unoptimized?: boolean;
 }) => {
     const sizeClasses = {
         small: "max-w-2xl w-[100px]",
@@ -107,6 +109,7 @@ const LightboxPortal = ({
                         className="object-contain"
                         quality={100}
                         priority
+                        unoptimized={unoptimized}
                     />
                 </div>
                 {title && (
@@ -286,6 +289,7 @@ export default function GradientImage({
                     title={title}
                     onClose={handleLightboxClose}
                     lightboxSize={lightboxSize}
+                    unoptimized={unoptimized}
                 />,
                 document.body
             )}

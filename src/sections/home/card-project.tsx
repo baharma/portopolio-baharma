@@ -3,8 +3,12 @@
 import ComponentsButton from "@/src/component/button";
 import ComponentsCardProject from "@/src/component/card-project";
 import ComponentsLine from "@/src/component/line";
+import { productApi } from "@/src/service/api/server";
+import { useEffect, useState } from "react";
 
-export default function SectionsHomeCardProject() {
+export default function SectionsHomeCardProject({ dataProduct }: any) {
+
+    console.log(dataProduct)
     return (
         <div className="bg-secondary">
             <div className="md:max-w-6xl lg:max-w-8xl xl:max-w-10xl mx-auto">
@@ -16,42 +20,35 @@ export default function SectionsHomeCardProject() {
                 </p>
 
                 <div className="border border-gray-200 rounded-2xl p-6 bg-white show-text-on-top">
+
                     <ComponentsCardProject
-                        tags={["Featured", "E-Commerce"]}
-                        tagline="Where homes feel alive"
-                        title="Solene Sofa, Arctic Cloud, Mira."
-                        description="A warm, editorial commerce experience for a furniture brand."
-                        images={["/img/1.jpg", "/img/2.jpg", "/img/3.jpg", "/img/4.jpg"]}
+                        // tags={["Featured", "E-Commerce"]}
+                        tagline={dataProduct?.[0].description?.value?.description?.type_project}
+                        title={dataProduct?.[0].description?.value?.description?.name_project}
+                        description={dataProduct?.[0].description?.value?.description?.description_short}
+                        images={dataProduct?.[0].description?.value?.description?.image_list}
                         techStack={["Angular 17", "SSR", "Tailwind", "Strapi", "GSAP"]}
                         year={2025}
                         caseStudyUrl="/projects/terraform"
                     />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                    <div className="border border-gray-200 rounded-2xl p-6 bg-white show-text-on-left">
-                        <ComponentsCardProject
-                            tags={["Featured", "E-Commerce"]}
-                            tagline="Where homes feel alive"
-                            title="Solene Sofa, Arctic Cloud, Mira."
-                            description="A warm, editorial commerce experience for a furniture brand."
-                            images={["/img/1.jpg", "/img/2.jpg", "/img/3.jpg", "/img/4.jpg"]}
-                            techStack={["Angular 17", "SSR", "Tailwind", "Strapi", "GSAP"]}
-                            year={2025}
-                            caseStudyUrl="/projects/terraform"
-                        />
-                    </div>
-                    <div className="border border-gray-200 rounded-2xl p-6 bg-white show-text-on-right">
-                        <ComponentsCardProject
-                            tags={["Featured", "E-Commerce"]}
-                            tagline="Where homes feel alive"
-                            title="Solene Sofa, Arctic Cloud, Mira."
-                            description="A warm, editorial commerce experience for a furniture brand."
-                            images={["/img/1.jpg", "/img/2.jpg", "/img/3.jpg", "/img/4.jpg"]}
-                            techStack={["Angular 17", "SSR", "Tailwind", "Strapi", "GSAP"]}
-                            year={2025}
-                            caseStudyUrl="/projects/terraform"
-                        />
-                    </div>
+                    {
+                        dataProduct.slice(1).map((data: any, index: number) => (
+                            <div className="border border-gray-200 rounded-2xl p-6 bg-white show-text-on-left" key={index}>
+                                <ComponentsCardProject
+                                    tags={data?.category?.nama}
+                                    tagline={data?.description?.value?.description?.type_project}
+                                    title={data?.description?.value?.description?.name_project}
+                                    description={data?.description?.value?.description?.description_short}
+                                    images={data?.description?.value?.description?.image_list}
+                                    techStack={data?.description?.value?.description?.list_stack}
+                                    year={2025}
+                                    caseStudyUrl="/projects/terraform"
+                                />
+                            </div>
+                        ))
+                    }
                 </div>
                 <ComponentsLine />
             </div>

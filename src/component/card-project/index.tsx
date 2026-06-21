@@ -55,7 +55,13 @@ export default function ComponentsCardProject({
                     <div className="grid grid-cols-4 gap-3">
                         {images.map((src, i) => (
                             <div key={i} className="aspect-3/4 relative rounded-lg overflow-hidden bg-[#2a1f15]">
-                                <GradientImage src={src} unoptimized />
+                                <GradientImage
+                                    src={src}
+                                    alt={`${title} screenshot ${i + 1}`}
+                                    unoptimized
+                                    enableLightbox
+                                    lightboxSize="large"
+                                />
                             </div>
                         ))}
                     </div>

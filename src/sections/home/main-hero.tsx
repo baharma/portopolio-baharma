@@ -1,16 +1,18 @@
+
 import GradientImage from "@/src/component/gradient-image";
 import ComponentsLiveIndicator from "@/src/component/live-indicator";
+import { value } from "@/src/service/type/value";
 import { GrSubtract } from "react-icons/gr";
 
-export default function SectionsHomeMainHero() {
-    // const getData = async () => {
-    //     const data = await apiMain()
-    //     console.log(data)
-    //     return data
-    // }
-    // useEffect(() => {
-    //     getData()
-    // }, [getData])
+type Props = {
+    data: any
+}
+
+export default function SectionsHomeMainHero({ data: _data }: Props) {
+    const imageProfile = _data?.image_profile
+    const description = _data?.description
+    const dateNow = new Date()
+    const dataCurrently = _data?.currently
 
 
     return (
@@ -19,7 +21,7 @@ export default function SectionsHomeMainHero() {
                 <div className="flex items-center gap-4  show-text-on-top">
                     <GrSubtract className="text-gray-500 w-6 h-6" />
                     <span className="text-8d font-mono text-gray-500">
-                        Portofolio - 2026 - Baharma.MY.ID
+                        Portofolio - {dateNow.getFullYear()} - Baharma.MY.ID
                     </span>
                 </div>
                 <div className="flex">
@@ -33,31 +35,23 @@ export default function SectionsHomeMainHero() {
 
                         </h1>
                         <p className="text-8d mt-4 text-gray-500 show-text-on-top">
-                            I'm a software engineer specializing in building exceptional digital experiences. Currently, I'm focused on building responsive web applications.
+                            {description.value}
                         </p>
                         <div className="w-full h-px bg-gray-300 show-text-on-top" />
-                        <div className="mt-10  py-3 w-full lg:w-500 flex flex-col md:flex-row justify-between gap-6 md:gap-0">
-                            <div className="flex flex-col gap-2 show-text-on-top">
-                                <span className="text-8d text-gray-500 font-mono">Currently</span>
-                                <span className="text-10d font-bold font-sans">Front-End Dev @ Taksu Tech</span>
-                            </div>
-                            <div className="flex flex-col gap-2 show-text-on-top">
-                                <span className="text-8d text-gray-500 font-mono">Based in</span>
-                                <span className="text-10d font-bold font-sans">Bali, Indonesia · GMT+8</span>
-                            </div>
-                            <div className="flex flex-col gap-2 show-text-on-top">
-                                <span className="text-8d text-gray-500 font-mono">Focus</span>
-                                <span className="text-10d font-bold font-sans">Fullstack Development</span>
-                            </div>
-                            <div className="flex flex-col gap-2 show-text-on-top">
-                                <span className="text-8d text-gray-500 font-mono">Open to</span>
-                                <span className="text-10d font-bold font-sans">Freelance & full-time</span>
-                            </div>
+                        <div className="mt-10  py-3 w-full lg:w-500 grid md:grid-cols-2 lg:grid-cols-4 justify-between gap-6 md:gap-0">
+                            {
+                                dataCurrently.map((data: value, index: number) => (
+                                    <div className="flex flex-col gap-2 show-text-on-top" key={index}>
+                                        <span className="text-8d text-gray-500 font-mono">{data.label}</span>
+                                        <span className="text-10d font-bold font-sans">{data.value}</span>
+                                    </div>
+                                ))
+                            }
                         </div>
                     </div>
                     <div className="p-10">
                         <div className="w-200 h-200 relative top-0 left-0 rounded-2xl overflow-hidden mt-20 show-text-on-top" >
-                            <GradientImage src="https://picsum.photos/400/600" unoptimized />
+                            <GradientImage src={imageProfile?.value} unoptimized />
                         </div>
                     </div>
                 </div>

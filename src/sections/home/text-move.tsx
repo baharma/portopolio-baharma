@@ -3,22 +3,12 @@
 import { useEffect, useRef } from "react"
 import gsap from "gsap"
 
-const skills = [
-    "TypeScript",
-    "Tailwind",
-    "Design Systems",
-    "Developer",
-    "Designer",
-    "Freelance",
-    "Angular",
-    "React",
-    "Next.js",
-    "Golang",
-    "Laravel",
-]
 
-export default function SectionsHomeTextMove() {
+
+export default function SectionsHomeTextMove(data: any) {
+
     const marqueeRef = useRef<HTMLDivElement>(null)
+    const skills = data.data?.[0]?.value || []
     const items = [...skills, ...skills]
 
     useEffect(() => {
