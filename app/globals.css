@@ -31,10 +31,14 @@
 
   /* costume color */
 
-  --color-primary: #c2410d;
-  --color-secondary: #f4f1ec;
-  --color-tertiary: #ece7df;
-  --color-quaternary: #16140f;
+  --color-primary: #1e3a5f;
+  /* navy — aksen utama (pengganti oranye) */
+  --color-secondary: #eef1f6;
+  /* putih sejuk — background terang */
+  --color-tertiary: #dbe2ec;
+  /* abu kebiruan — background sekunder */
+  --color-quaternary: #0e1622;
+  /* hampir hitam kebiruan — teks */
   /* Border Radius */
   --radius-8d: calc(9 / var(--bw) * 100vw);
   --radius-10d: calc(10 / var(--bw) * 100vw);

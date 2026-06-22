@@ -28,7 +28,7 @@ export const productApi = unstable_cache(
 
         return data;
     },
-    ['product-api'], // (Opsional tapi disarankan) Cache key base
+    ['product-api'],
     {
         revalidate: 3600, // (Opsional) Waktu cache dalam detik, misalnya 1 jam
         tags: ['products'] // (Opsional) Tag untuk on-demand revalidation
