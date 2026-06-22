@@ -39,6 +39,8 @@
   /* abu kebiruan — background sekunder */
   --color-quaternary: #0e1622;
   /* hampir hitam kebiruan — teks */
+  --color-quinary: #1c2a3d;
+  /* navy gelap — permukaan/placeholder di atas quaternary */
   /* Border Radius */
   --radius-8d: calc(9 / var(--bw) * 100vw);
   --radius-10d: calc(10 / var(--bw) * 100vw);

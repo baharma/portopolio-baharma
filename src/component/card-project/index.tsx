@@ -25,7 +25,7 @@ export default function ComponentsCardProject({
     return (
         <div className="w-full">
             {/* Dark card */}
-            <div className="bg-[#1a1410] rounded-2xl overflow-hidden p-6 md:p-8">
+            <div className="bg-quaternary rounded-2xl overflow-hidden p-6 md:p-8">
                 {/* Top tags */}
                 {tags.length > 0 && (
                     <div className="flex items-center gap-2 mb-4">
@@ -54,7 +54,7 @@ export default function ComponentsCardProject({
                 {images.length > 0 && (
                     <div className="grid grid-cols-4 gap-3">
                         {images.map((src, i) => (
-                            <div key={i} className="aspect-3/4 relative rounded-lg overflow-hidden bg-[#2a1f15]">
+                            <div key={i} className="aspect-3/4 relative rounded-lg overflow-hidden bg-quinary">
                                 <GradientImage
                                     src={src}
                                     alt={`${title} screenshot ${i + 1}`}
@@ -70,7 +70,7 @@ export default function ComponentsCardProject({
                 {images.length === 0 && (
                     <div className="grid grid-cols-4 gap-3">
                         {[...Array(4)].map((_, i) => (
-                            <div key={i} className="aspect-3/4 rounded-lg bg-[#2a1f15]" />
+                            <div key={i} className="aspect-3/4 rounded-lg bg-quinary" />
                         ))}
                     </div>
                 )}

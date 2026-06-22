@@ -27,7 +27,7 @@ export default function SectionsHomeCardProject({ dataProduct }: any) {
                         title={dataProduct?.[0].description?.value?.description?.name_project}
                         description={dataProduct?.[0].description?.value?.description?.description_short}
                         images={dataProduct?.[0].description?.value?.description?.image_list}
-                        techStack={["Angular 17", "SSR", "Tailwind", "Strapi", "GSAP"]}
+                        techStack={dataProduct?.description?.value?.description?.list_stack}
                         year={2025}
                         caseStudyUrl="/projects/terraform"
                     />
