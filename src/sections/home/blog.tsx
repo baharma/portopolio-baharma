@@ -19,42 +19,7 @@ type BlogPost = {
 };
 
 const posts: BlogPost[] = [
-    {
-        slug: "typescript-strict-mode",
-        title: "Why I always enable strict mode in TypeScript",
-        excerpt: "Strict mode catches an entire class of bugs at compile time that would otherwise slip into production. Here's how I set it up and what it saved me from.",
-        date: "May 12, 2025",
-        readTime: "4 min read",
-        tag: "TypeScript",
-        image: "/img/toolkit-1.jpg",
-    },
-    {
-        slug: "golang-concurrency-patterns",
-        title: "Golang concurrency patterns I actually use",
-        excerpt: "Goroutines and channels are powerful, but the patterns that matter day-to-day are just a handful. I break down the three I reach for most.",
-        date: "Apr 3, 2025",
-        readTime: "6 min read",
-        tag: "Golang",
-        image: "/img/toolkit-2.jpg",
-    },
-    {
-        slug: "react-server-components",
-        title: "React Server Components changed how I think about data fetching",
-        excerpt: "After six months of using RSC in production, the mental model shift is real. No more waterfall fetches, no more useEffect spaghetti.",
-        date: "Mar 18, 2025",
-        readTime: "5 min read",
-        tag: "React",
-        image: "/img/toolkit-3.jpg",
-    },
-    {
-        slug: "docker-compose-dev",
-        title: "My Docker Compose setup for local development",
-        excerpt: "A single compose file that spins up a Postgres database, Redis cache, and the app itself — with hot reload and zero port conflicts.",
-        date: "Feb 27, 2025",
-        readTime: "3 min read",
-        tag: "Docker",
-        image: "/img/toolkit-1.jpg",
-    },
+
 ];
 
 export default function SectionsHomeBlogs() {
@@ -104,44 +69,52 @@ export default function SectionsHomeBlogs() {
 
                 {/* list */}
                 <div className="mt-12">
-                    {posts.map((post) => (
-                        <div key={post.slug} className="box-item">
-                            <ComponentsLine />
-                            <a
-                                href={`/blog/${post.slug}`}
-                                className="group flex flex-col md:flex-row md:items-center gap-6 py-7 hover:opacity-80 transition-opacity duration-200 cursor-pointer"
-                            >
-                                {/* thumbnail */}
-                                <div className="relative w-full md:w-48 h-32 md:h-28 shrink-0 rounded-xl overflow-hidden bg-gray-100">
-                                    <GradientImage
-                                        src={post.image}
-                                        unoptimized
-                                        className="object-cover"
-                                    />
-                                </div>
-
-                                {/* content */}
-                                <div className="flex-1 flex flex-col md:flex-row md:items-start md:justify-between gap-3">
-                                    <div className="flex-1 max-w-xl space-y-2">
-                                        <span className="inline-block text-xs font-mono text-primary/70 bg-primary/8 px-2 py-0.5 rounded-full">
-                                            {post.tag}
-                                        </span>
-                                        <p className="font-semibold text-gray-800 leading-snug group-hover:text-primary transition-colors duration-200">
-                                            {post.title}
-                                        </p>
-                                        <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
-                                            {post.excerpt}
-                                        </p>
+                    {posts && posts.length > 0 ? (
+                        // Kondisi TRUE: Jika posts ada dan panjang array lebih dari 0
+                        posts.map((post) => (
+                            <div key={post.slug} className="box-item">
+                                <ComponentsLine />
+                                <a
+                                    href={`/blog/${post.slug}`}
+                                    className="group flex flex-col md:flex-row md:items-center gap-6 py-7 hover:opacity-80 transition-opacity duration-200 cursor-pointer"
+                                >
+                                    {/* thumbnail */}
+                                    <div className="relative w-full md:w-48 h-32 md:h-28 shrink-0 rounded-xl overflow-hidden bg-gray-100">
+                                        <GradientImage
+                                            src={post.image}
+                                            unoptimized
+                                            className="object-cover"
+                                        />
                                     </div>
 
-                                    <div className="flex md:flex-col md:items-end gap-3 md:gap-1 shrink-0">
-                                        <span className="text-xs font-mono text-gray-400">{post.date}</span>
-                                        <span className="text-xs font-mono text-gray-400">{post.readTime}</span>
+                                    {/* content */}
+                                    <div className="flex-1 flex flex-col md:flex-row md:items-start md:justify-between gap-3">
+                                        <div className="flex-1 max-w-xl space-y-2">
+                                            <span className="inline-block text-xs font-mono text-primary/70 bg-primary/8 px-2 py-0.5 rounded-full">
+                                                {post.tag}
+                                            </span>
+                                            <p className="font-semibold text-gray-800 leading-snug group-hover:text-primary transition-colors duration-200">
+                                                {post.title}
+                                            </p>
+                                            <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
+                                                {post.excerpt}
+                                            </p>
+                                        </div>
+
+                                        <div className="flex md:flex-col md:items-end gap-3 md:gap-1 shrink-0">
+                                            <span className="text-xs font-mono text-gray-400">{post.date}</span>
+                                            <span className="text-xs font-mono text-gray-400">{post.readTime}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
+                        ))
+                    ) : (
+                        // Kondisi FALSE: Jika posts null atau kosong
+                        <div className="box-item">
+                            <p className="py-7 text-gray-500 text-sm">Not Yet Create.</p>
                         </div>
-                    ))}
+                    )}
                     <ComponentsLine />
                 </div>
 

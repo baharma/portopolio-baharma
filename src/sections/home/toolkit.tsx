@@ -11,7 +11,7 @@ import {
 } from "react-icons/si";
 import { IconType } from "react-icons";
 import ComponentsLine from "@/src/component/line";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
@@ -21,22 +21,20 @@ type Tool = {
     category: string;
 };
 
-
-
-const tools: Tool[] = [
-    { name: "TypeScript", icon: SiTypescript, category: "Language" },
-    { name: "React", icon: SiReact, category: "Frontend" },
-    { name: "Node.js", icon: SiNodedotjs, category: "Backend" },
-    { name: "Angular", icon: SiAngular, category: "Frontend" },
-    { name: "Golang", icon: SiGo, category: "Backend" },
-    { name: "Laravel", icon: SiLaravel, category: "Backend" },
-    { name: "Docker", icon: SiDocker, category: "DevOps" },
-    { name: "React Native", icon: SiReact, category: "Mobile" },
-];
+const iconMap: Record<string, IconType> = {
+    SiTypescript,
+    SiReact,
+    SiNodedotjs,
+    SiAngular,
+    SiGo,
+    SiLaravel,
+    SiDocker,
+};
 
 
 
-export default function SectionsHomeToolkit() {
+
+export default function SectionsHomeToolkit({ datas }: { datas: any }) {
     const containerRef = useRef(null);
 
     useGSAP(() => {
@@ -66,23 +64,26 @@ export default function SectionsHomeToolkit() {
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10 ">
-                    {tools.map(({ name, icon: Icon, category }) => (
+                    {datas.map((dataTool: any, index: number) => {
+                        const Icon = iconMap[dataTool.icon.value];
+                        return (
                         <div
-                            key={name}
+                            key={index}
                             className="box-item group bg-white border border-gray-200 rounded-2xl p-6 hover:border-primary hover:shadow-[0_4px_24px_0_rgba(194,65,13,0.08)] hover:-translate-y-0.5 transition-[border-color,box-shadow] duration-300 cursor-default"
                         >
                             {/* icon */}
                             <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-5 group-hover:bg-primary/10 transition-colors duration-300">
-                                <Icon className="w-6 h-6 text-gray-400 group-hover:text-primary transition-colors duration-300" />
+                                {Icon && <Icon className="w-6 h-6 text-gray-400 group-hover:text-primary transition-colors duration-300" />}
                             </div>
 
-                            <p className="font-semibold text-gray-800 text-sm mb-1">{name}</p>
+                            <p className="font-semibold text-gray-800 text-sm mb-1">{dataTool.name.value}</p>
 
                             <span className="text-xs font-mono text-gray-400 group-hover:text-primary/60 transition-colors duration-300">
-                                {category}
+                                {dataTool.category.value}
                             </span>
                         </div>
-                    ))}
+                        );
+                    })}
                 </div>
 
             </div>

@@ -22,7 +22,7 @@ export default function SectionsHomeCardProject({ dataProduct }: any) {
                 <div className="border border-gray-200 rounded-2xl p-6 bg-white show-text-on-top">
 
                     <ComponentsCardProject
-                        // tags={["Featured", "E-Commerce"]}
+                        tags={dataProduct?.category?.nama}
                         tagline={dataProduct?.[0].description?.value?.description?.type_project}
                         title={dataProduct?.[0].description?.value?.description?.name_project}
                         description={dataProduct?.[0].description?.value?.description?.description_short}
