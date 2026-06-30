@@ -29,7 +29,7 @@ export default function ComponentsNavbar() {
                     </div>
                 </div>
                 <div className="hidden md:flex gap-10 ">
-                    <ComponentsButtonUnderline title="Work History" />
+                    <ComponentsButtonUnderline title="experience" url="/experience" />
                     <ComponentsButtonUnderline title="About" />
                     <ComponentsButtonUnderline title="Projects" />
                     <ComponentsButtonUnderline title="Contacts" />

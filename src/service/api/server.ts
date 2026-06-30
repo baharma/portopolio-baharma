@@ -34,3 +34,13 @@ export const productApi = unstable_cache(
         tags: ['products'] // (Opsional) Tag untuk on-demand revalidation
     }
 );
+
+export const apiExperience = unstable_cache(
+    async () => {
+        const { data } = await http().get(`website/slug/portopolio-baharma/page/experience`)
+        return data
+    }, ['experience'], {
+    revalidate: 3600,
+    tags: ['experience']
+}
+)

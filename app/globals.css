@@ -104,3 +104,95 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ---- Rich-text (Quill) content rendered by the BlogContent component ---- */
+
+.blog-content {
+  line-height: 1.65;
+}
+
+/* Vertical rhythm: space between top-level blocks, but not above the first one. */
+.blog-content > :first-child {
+  margin-top: 0;
+}
+
+.blog-content > * + * {
+  margin-top: 0.85em;
+}
+
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4 {
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 1.5em;
+  margin-bottom: 0.4em;
+}
+
+.blog-content h3 {
+  font-size: 1.5em;
+}
+
+.blog-content h4 {
+  font-size: 1.2em;
+}
+
+.blog-content strong {
+  font-weight: 600;
+}
+
+.blog-content a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.blog-content blockquote {
+  border-left: 3px solid var(--color-tertiary);
+  padding-left: 1em;
+  color: #4b5563;
+  font-style: italic;
+}
+
+/* Quill emits <li data-list="ordered"|"bullet"> with an empty <span class="ql-ui">
+   placeholder and draws the marker into `.ql-ui::before` with a CSS counter — it does
+   NOT rely on native list-style. Tailwind's Preflight also strips list markers. So we
+   restore the counters here; otherwise the 1. 2. 3. numbers shown in the CMS disappear. */
+.blog-content ol,
+.blog-content ul {
+  padding-left: 1.5em;
+  list-style: none;
+}
+
+.blog-content ol {
+  counter-reset: blog-list-counter;
+}
+
+.blog-content li {
+  margin-top: 0.4em;
+}
+
+.blog-content li[data-list="ordered"] {
+  counter-increment: blog-list-counter;
+}
+
+/* Marker sits in the list padding so wrapped text hangs flush under the first line. */
+.blog-content li > .ql-ui::before {
+  display: inline-block;
+  width: 1.2em;
+  margin-left: -1.5em;
+  margin-right: 0.3em;
+  text-align: right;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.blog-content li[data-list="ordered"] > .ql-ui::before {
+  content: counter(blog-list-counter, decimal) ".";
+}
+
+.blog-content li[data-list="bullet"] > .ql-ui::before {
+  content: "•";
+}
