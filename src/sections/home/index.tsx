@@ -13,7 +13,7 @@ export default async function PagesHome() {
     const data = await homePage()
     const productData = await productApi({ countLimit: 3, id: 3 })
     const heroValues = data?.data?.workflows?.[0].value?.home_page
-    console.log(heroValues)
+    console.log('data test', productData)
     return (
         <>
             <SectionsHomeMainHero data={heroValues?.hero_main} />

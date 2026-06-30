@@ -1,7 +1,7 @@
 import ComponentsLiveIndicator from "@/src/component/live-indicator";
 import BlogContent from "@/src/component/render-blog";
 
-export default function SectionExperienceMainHero({ description }: { description: string }) {
+export default function SectionExperienceMainHero({ description, slug }: { description: string, slug?: string }) {
     return (
         <div className="bg-secondary border-b border-gray-200">
             <div className="md:max-w-6xl lg:max-w-8xl xl:max-w-10xl mx-auto p-6 flex justify-center items-center  flex-col w-full gap-6">

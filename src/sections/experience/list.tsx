@@ -1,7 +1,7 @@
 import GradientImage from "@/src/component/gradient-image";
 import BlogContent from "@/src/component/render-blog";
 
-export default function SectionsExperienceList({ data }: { data: any[] }) {
+export default function SectionsExperienceList({ data, slug }: { data: any[], slug?: string }) {
     const experiences = data?.filter((item) => item?.position?.value) ?? [];
 
     return (

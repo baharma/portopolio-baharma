@@ -4,6 +4,7 @@ import { SlArrowDown, SlArrowUp } from "react-icons/sl";
 import ComponentsButtonUnderline from "../button-underline";
 import ComponentsLiveIndicator from "../live-indicator";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function ComponentsNavbar() {
     const [buttonActive, setButtonActive] = useState<boolean>(false);
@@ -23,14 +24,14 @@ export default function ComponentsNavbar() {
                 <div className="flex gap-3 items-center">
                     <div className="flex items-center justify-center">
                         <ComponentsLiveIndicator />
-                        <div className="ml-2 text-14d  font-instrument-serif ">
+                        <Link className="ml-2 text-14d  font-instrument-serif " href={`/`}>
                             BAHARMA.MY.ID
-                        </div>
+                        </Link>
                     </div>
                 </div>
                 <div className="hidden md:flex gap-10 ">
                     <ComponentsButtonUnderline title="experience" url="/experience" />
-                    <ComponentsButtonUnderline title="About" />
+                    <ComponentsButtonUnderline title="About" url="/project" />
                     <ComponentsButtonUnderline title="Projects" />
                     <ComponentsButtonUnderline title="Contacts" />
                 </div>

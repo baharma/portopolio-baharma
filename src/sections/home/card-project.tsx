@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 
 export default function SectionsHomeCardProject({ dataProduct }: any) {
 
-    console.log(dataProduct)
     return (
         <div className="bg-secondary">
             <div className="md:max-w-6xl lg:max-w-8xl xl:max-w-10xl mx-auto">
@@ -27,7 +26,7 @@ export default function SectionsHomeCardProject({ dataProduct }: any) {
                         title={dataProduct?.[0].description?.value?.description?.name_project}
                         description={dataProduct?.[0].description?.value?.description?.description_short}
                         images={dataProduct?.[0].description?.value?.description?.image_list}
-                        techStack={dataProduct?.description?.value?.description?.list_stack}
+                        techStack={dataProduct?.[0].description?.value?.description?.list_stack}
                         year={2025}
                         caseStudyUrl="/projects/terraform"
                     />
