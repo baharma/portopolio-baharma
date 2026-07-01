@@ -31,8 +31,8 @@ export default function ComponentsNavbar() {
                 </div>
                 <div className="hidden md:flex gap-10 ">
                     <ComponentsButtonUnderline title="experience" url="/experience" />
-                    <ComponentsButtonUnderline title="About" url="/project" />
-                    <ComponentsButtonUnderline title="Projects" />
+                    <ComponentsButtonUnderline title="About" />
+                    <ComponentsButtonUnderline title="Projects" url="/project" />
                     <ComponentsButtonUnderline title="Contacts" />
                 </div>
                 <div className="hidden md:flex items-center gap-3 ">
