@@ -44,3 +44,15 @@ export const apiExperience = unstable_cache(
     tags: ['experience']
 }
 )
+
+
+
+export const apiAboutMe = unstable_cache(
+    async () => {
+        const { data } = await http().get(`website/slug/portopolio-baharma/page/about`)
+        return data
+    }, ['about-me'], {
+    revalidate: 3600,
+    tags: ['about-me']
+}
+)

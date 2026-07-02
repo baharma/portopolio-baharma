@@ -18,6 +18,7 @@ export default function ComponentsNavbar() {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+    const myCV = `https://docs.google.com/document/d/e/2PACX-1vRMS2DgLLAcl08YZj37S4pIARkkEApXsQ2YMldiwy3sZt_fvIG2wQBwfkrIzR1rVH-ZGDxEtGN_GGyy/pub`
     return (
         <div className="bg-secondary border-b border-gray-200">
             <div className=" md:max-w-6xl lg:max-w-8xl xl:max-w-10xl mx-auto p-6 flex items-center justify-between w-full ">
@@ -31,13 +32,15 @@ export default function ComponentsNavbar() {
                 </div>
                 <div className="hidden md:flex gap-10 ">
                     <ComponentsButtonUnderline title="experience" url="/experience" />
-                    <ComponentsButtonUnderline title="About" />
+                    <ComponentsButtonUnderline title="About" url="/about" />
                     <ComponentsButtonUnderline title="Projects" url="/project" />
-                    <ComponentsButtonUnderline title="Contacts" />
+                    <ComponentsButtonUnderline title="Contacts" url="/contacts" />
                 </div>
                 <div className="hidden md:flex items-center gap-3 ">
                     <button className="px-4 py-2 bg-primary text-white rounded-2xl hover:bg-primary/90 transition-colors font-sans text-10d">
-                        Download CV
+                        <a href={myCV} target="_blank" rel="noopener noreferrer">
+                            Download CV
+                        </a>
                     </button>
                 </div>
                 <div className=" md:hidden flex items-center gap-3 ">
@@ -55,13 +58,15 @@ export default function ComponentsNavbar() {
             {buttonActive && (
                 <div className="md:hidden relative top-full left-0 w-full bg-secondary border-b border-gray-200 shadow-lg flex flex-col p-6 gap-6">
                     <div className="flex flex-col gap-4">
-                        <ComponentsButtonUnderline title="Work History" />
-                        <ComponentsButtonUnderline title="About" />
-                        <ComponentsButtonUnderline title="Projects" />
-                        <ComponentsButtonUnderline title="Contacts" />
+                        <ComponentsButtonUnderline title="experience" url="/experience" />
+                        <ComponentsButtonUnderline title="About" url="/about" />
+                        <ComponentsButtonUnderline title="Projects" url="/projects" />
+                        <ComponentsButtonUnderline title="Contacts" url="/contacts" />
                     </div>
                     <button className="w-full py-3 bg-primary text-white rounded-2xl hover:bg-primary/90 transition-colors font-sans text-center mt-2">
-                        Download CV
+                        <a href={myCV} target="_blank" rel="noopener noreferrer">
+                            Download CV
+                        </a>
                     </button>
                 </div>
             )}
