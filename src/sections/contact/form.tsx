@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from "react";
-import { GoArrowRight } from "react-icons/go";
+import { GoAlertFill, GoArrowRight, GoCheckCircleFill } from "react-icons/go";
 
 const inputClass =
-    "bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-primary transition-colors";
+    "bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 hover:border-gray-300 transition-all";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -94,8 +94,16 @@ export default function SectionsContactForm() {
             {(status === "success" || status === "error") && (
                 <p
                     aria-live="polite"
-                    className={`text-sm ${status === "success" ? "text-green-600" : "text-red-500"}`}
+                    className={`flex items-center gap-2 text-sm rounded-xl px-4 py-3 ${status === "success"
+                        ? "text-green-700 bg-green-50 border border-green-200"
+                        : "text-red-600 bg-red-50 border border-red-200"
+                        }`}
                 >
+                    {status === "success" ? (
+                        <GoCheckCircleFill className="shrink-0" />
+                    ) : (
+                        <GoAlertFill className="shrink-0" />
+                    )}
                     {message}
                 </p>
             )}
@@ -103,7 +111,7 @@ export default function SectionsContactForm() {
             <button
                 type="submit"
                 disabled={pending}
-                className="px-10 py-4 rounded-2xl transition-colors font-sans text-10d flex items-center gap-2 w-fit bg-primary text-white hover:bg-primary/90 disabled:opacity-60 disabled:cursor-not-allowed"
+                className="px-10 py-4 rounded-2xl transition-all font-sans text-10d flex items-center gap-2 w-fit bg-primary text-white hover:bg-primary/90 hover:shadow-[0_8px_24px_0_rgba(30,58,95,0.25)] hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
             >
                 <span>{pending ? "Sending..." : "Send message"}</span>
                 <GoArrowRight />
