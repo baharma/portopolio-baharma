@@ -1,3 +1,5 @@
+'use client'
+import ComponentsButton from "@/src/component/button";
 import ComponentsLine from "@/src/component/line";
 import BlogContent from "@/src/component/render-blog";
 import { GrSubtract } from "react-icons/gr";
@@ -58,6 +60,13 @@ export default function SectionsHomeShortTimeline(data: any) {
                         <ComponentsLine />
                     </div>
                 ))}
+            </div>
+            <div className="md:max-w-6xl lg:max-w-8xl xl:max-w-10xl mx-auto">
+                <div className="flex justify-end items-end py-10 px-20">
+                    <ComponentsButton title="View All Projects" onClick={() => {
+                        navigation.navigate("/experience")
+                    }} />
+                </div>
             </div>
         </div>
     )
