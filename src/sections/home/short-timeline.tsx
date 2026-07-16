@@ -64,7 +64,7 @@ export default function SectionsHomeShortTimeline(data: any) {
             </div>
             <div className="md:max-w-6xl lg:max-w-8xl xl:max-w-10xl mx-auto">
                 <div className="flex justify-end items-end py-10 px-20">
-                    <ComponentsButton title="View All Projects" onClick={() => {
+                    <ComponentsButton title="View All Experiences" onClick={() => {
                         router.push("/experience")
                     }} />
                 </div>
