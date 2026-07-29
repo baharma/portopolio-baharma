@@ -47,7 +47,7 @@ export default function SectionsHomeShortTimeline(data: any) {
                             </div>
 
                             {/* Kolom kanan: badge (lebar tetap) */}
-                            <div className="flex md:justify-end gap-1">
+                            <div className="flex flex-wrap md:justify-end gap-1">
                                 {
                                     datas?.tech_stack?.value.map((stack: any, index: number) => (
                                         <span key={index} className="px-3 py-1 border border-gray-300 rounded-full text-8d font-mono text-gray-600 bg-secondary whitespace-nowrap">

@@ -24,8 +24,8 @@ export default function SectionsHomeMainHero({ data: _data }: Props) {
                         Portofolio - {dateNow.getFullYear()} - Baharma.MY.ID
                     </span>
                 </div>
-                <div className="flex">
-                    <div className="grow">
+                <div className="flex flex-col md:flex-row">
+                    <div className="grow min-w-0">
                         <h1 className="text-80d leading-none font-instrument-serif mt-4 ">
                             <span className="block show-text-on-top">Aditya</span>
                             <span className="inline-flex items-end gap-1 show-text-on-top">
@@ -49,8 +49,8 @@ export default function SectionsHomeMainHero({ data: _data }: Props) {
                             }
                         </div>
                     </div>
-                    <div className="p-10">
-                        <div className="w-200 h-200 relative top-0 left-0 rounded-2xl overflow-hidden mt-20 show-text-on-top" >
+                    <div className="p-6 md:p-10">
+                        <div className="w-full max-w-[280px] mx-auto aspect-square md:w-200 md:h-200 md:max-w-none relative top-0 left-0 rounded-2xl overflow-hidden mt-10 md:mt-20 show-text-on-top" >
                             <GradientImage src={imageProfile?.value} unoptimized />
                         </div>
                     </div>

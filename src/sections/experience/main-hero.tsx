@@ -16,7 +16,7 @@ export default function SectionExperienceMainHero({ description, slug }: { descr
 
                 {/* Judul + deskripsi dalam satu kolom */}
                 <div className="flex items-center flex-col gap-4">
-                    <h1 className="text-80d leading-none font-instrument-serif show-text-on-top flex gap-20">
+                    <h1 className="text-80d leading-none font-instrument-serif show-text-on-top flex flex-wrap justify-center gap-x-20 gap-y-4">
                         <span className="block">Work</span>
                         <span className="inline-flex items-end gap-1 text-primary italic">
                             history
