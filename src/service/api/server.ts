@@ -7,7 +7,7 @@ export const apiMain = unstable_cache(
         return data
     },
     ['portopolio-baharma'],
-    { revalidate: 3600 }
+    { revalidate: 3600, tags: ['main'] }
 )
 
 export const homePage = unstable_cache(
@@ -16,7 +16,7 @@ export const homePage = unstable_cache(
         return data
     },
     ['home-page'],
-    { revalidate: 3600 }
+    { revalidate: 3600, tags: ['home'] }
 )
 
 export const productApi = unstable_cache(

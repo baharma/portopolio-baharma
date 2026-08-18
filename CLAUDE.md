@@ -17,6 +17,7 @@ There is no test suite/runner configured in this repo.
 
 - `NEXT_PUBLIC_API_URL` — base URL of the external content/CMS API this site reads from.
 - `API_SECRET_KEY` — bearer token attached server-side to outgoing API requests (see `src/service/api/http.ts`); never exposed to the client.
+- `REVALIDATE_SECRET` — required by `app/api/revalidate/route.ts`, which calls `revalidateTag()` to bust the `unstable_cache` entries in `src/service/api/server.ts` on demand (they otherwise only refresh every `revalidate: 3600` seconds). Hit `/api/revalidate?secret=...` (optionally `&tag=home|main|experience|about-me|products`) after editing CMS content to see it live immediately.
 
 ## Architecture
 
