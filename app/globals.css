@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #F4F3EF;
   --foreground: #171717;
 }
 
@@ -13,6 +13,26 @@
   to {
     transform: translateX(-50%);
   }
+}
+
+/* Portfolio design tokens (used by app/portfolio.css) */
+@theme static {
+  --color-paper: #F4F3EF;
+  --color-surface: #FFFFFF;
+  --color-ink: #0E1420;
+  --color-ink-soft: #262E3C;
+  --color-muted: #5B6474;
+  --color-hairline: #E2E2DC;
+  --color-hairline-strong: #C4C6BD;
+  --color-accent: #1F3A68;
+  --color-accent-tint: #E7EBF3;
+  --color-highlight: #3B5BFF;
+  --color-available: #16A36A;
+  --color-freelance-bg: #F1ECE0;
+  --color-freelance-text: #6A4A12;
+  --radius-card: 20px;
+  --radius-card-sm: 16px;
+  --shadow-hover: 0 32px 64px -32px rgba(14, 20, 32, 0.3), 0 2px 8px rgba(14, 20, 32, 0.04);
 }
 
 @theme inline {
@@ -95,13 +115,13 @@
 html,
 body {
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip; /* clip (not hidden) so position: sticky keeps working */
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
 /* ---- Rich-text (Quill) content rendered by the BlogContent component ---- */

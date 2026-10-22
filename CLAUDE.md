@@ -11,47 +11,34 @@ npm run start    # run production build
 npm run lint     # eslint (flat config in eslint.config.mjs)
 ```
 
-There is no test suite/runner configured in this repo.
-
-### Environment variables (`.env`, gitignored)
-
-- `NEXT_PUBLIC_API_URL` — base URL of the external content/CMS API this site reads from.
-- `API_SECRET_KEY` — bearer token attached server-side to outgoing API requests (see `src/service/api/http.ts`); never exposed to the client.
-- `REVALIDATE_SECRET` — required by `app/api/revalidate/route.ts`, which calls `revalidateTag()` to bust the `unstable_cache` entries in `src/service/api/server.ts` on demand (they otherwise only refresh every `revalidate: 3600` seconds). Hit `/api/revalidate?secret=...` (optionally `&tag=home|main|experience|about-me|products`) after editing CMS content to see it live immediately.
+There is no test suite/runner configured in this repo. `next build` does not run lint in Next 16, so run `npm run lint` and `npx tsc --noEmit` (no script for it) separately. Lint currently has pre-existing errors (mostly `no-explicit-any` and unused imports in `src/sections/home/*`); don't add new ones.
 
 ## Architecture
 
-This is a Next.js 16 App Router personal portfolio (baharma.my.id) that renders content pulled from an external headless CMS-style API, styled with Tailwind v4 and animated with GSAP.
+Next.js 16 App Router personal portfolio (baharma.my.id), Tailwind v4 + GSAP. Content lives in typed files, not a CMS.
 
-### Routing vs. implementation split
+### Layout of the repo
 
-`app/` contains only thin route wrappers — each `page.tsx` just renders a section component from `src/sections/`. All real UI/logic lives under `src/`:
+- `app/(site)/` — all pages (`/`, `/experience`, `/about`, `/projects`, `/projects/[slug]`) under one layout (sticky `Navbar`, `Footer`, `Motion`, Person JSON-LD). `app/sitemap.ts`, `robots.ts`, `opengraph-image.tsx` are file-convention SEO routes. `next.config.ts` redirects the old `/project` and `/contacts` URLs.
+- `content/` — `site.ts`, `experience.ts`, `projects.ts`, `tools.ts`. Single source of truth. Missing facts are `undefined` with a `// TODO` (LinkedIn URL, `/cv.pdf`, project URLs/screenshots/learnings); the UI omits those spots instead of inventing data. Adding a project to `projects.ts` automatically adds its card, row, `/projects/[slug]` page and sitemap entry.
+- `components/ui/` (button, project-card, browser-mockup, cta-band, ...) and `components/sections/` (navbar, footer, `home/*`, `case-study/`, ...). `lib/format.ts` computes date ranges/durations (pages use `revalidate = 86400` because "current role" durations depend on today).
+- Path alias `@/*` maps to the repo root (`@/content/...`, `@/components/...`).
 
-- `app/(main)/` is a route group whose `layout.tsx` wraps every page in the shared `ComponentsNavbar` / `ComponentsFooter`.
-- `app/(main)/[slug]/page.tsx` is a single dynamic route that renders `SectionExperience` for multiple nav destinations (e.g. `/experience`, `/project`); the section branches its data-fetching and rendering based on `slug === 'project'` vs. anything else.
-- `app/api/contact/route.ts` is a same-origin proxy: the client form POSTs plain JSON here, and this route forwards it server-to-server to the external email API via `http()`, which attaches `Authorization: Bearer API_SECRET_KEY`. This keeps the secret key off the client — any future client-initiated write that needs auth should go through a proxy route like this rather than calling the external API directly from a `"use client"` component (env vars without the `NEXT_PUBLIC_` prefix are `undefined` in client bundles anyway).
-- Path alias `@/*` maps to the repo root, so imports read as `@/src/...` and `@/app/...`.
+### Legacy CMS code (unused by pages now)
 
-### Data layer (`src/service/api/`)
-
-- `http.ts` builds an axios instance pointed at `NEXT_PUBLIC_API_URL`, attaching `Authorization: Bearer ${API_SECRET_KEY}` when present.
-- `server.ts` wraps each endpoint call in `unstable_cache` (typically `revalidate: 3600`, some with `tags` for on-demand revalidation) and exports one fetch function per page/resource: `apiMain`, `homePage`, `apiExperience`, `apiAboutMe`, `productApi`.
-- All content endpoints hang off one fixed website slug, `portopolio-baharma` (and `website_id`/`user_id` `3` for product/email calls) — this app only ever renders one site's content.
-- Responses share a consistent CMS shape: `response.data.workflows[0].value.<page-key>`, where individual fields are frequently objects of the form `{ key, label, type, value }` (see `src/service/type/value.ts`). Expect to drill through this shape (often with optional chaining) whenever wiring up a new field from the CMS.
-
-### Sections & components
-
-- `src/sections/<name>/index.tsx` is the entry point for a page area — usually an **async Server Component** that calls the relevant `server.ts` fetcher, reaches into the `workflows[0].value...` payload, and passes plain props down to sibling files in the same folder (`main-hero.tsx`, `list.tsx`, `timeline.tsx`, etc.).
-- `src/component/` holds reusable, presentational UI shared across sections (e.g. `card-project`, `gradient-image` with built-in lightbox support, `navbar`, `footer`, `render-blog`).
-- `src/component/render-blog` (`BlogContent`) renders CMS rich text (authored in Quill) via `dangerouslySetInnerHTML`. Its list-marker styling depends on the `.blog-content` rules in `app/globals.css` — Quill emits `<li data-list="ordered|bullet">` with an empty `.ql-ui` span and no native `list-style`, so markers are drawn via CSS counters there. Keep that CSS in sync if this component changes.
-
-### Animations
-
-GSAP + `@gsap/react`'s `useGSAP` hook is used in client components for scroll-triggered reveals. Shared helpers live in `src/uitls/gsapUtils.ts` (note: directory is spelled `uitls`, not `utils`) — `gsapShowTextOnTop`/`Left`/`Right` each register a `ScrollTrigger` against elements matching `.show-text-on-top` / `.show-text-on-left` / `.show-text-on-right`. Apply the matching class name to trigger the effect rather than writing new GSAP timelines from scratch.
+`src/` (sections, components, `src/service/api/*` with `unstable_cache` fetchers, `uitls/gsapUtils.ts`) and `app/api/{contact,revalidate}` are kept from the previous CMS-driven site but nothing in `app/(site)` imports them. `/api/contact` is still a working same-origin proxy (attaches `API_SECRET_KEY` server-side; any authenticated client write should go through such a route). Env vars: `NEXT_PUBLIC_API_URL`, `API_SECRET_KEY`, `REVALIDATE_SECRET` — only needed by that legacy code. Don't build new features on `src/`.
 
 ### Styling
 
-Tailwind v4 with CSS-first config in `app/globals.css` (`@theme inline`), no `tailwind.config.js`. Notable custom tokens:
+- Design tokens (`paper`, `ink`, `accent`, `highlight`, ... plus radii/shadow) are defined in an `@theme static` block in `app/globals.css`; component styles are plain CSS in `app/portfolio.css`, scoped under `.site` and written in real px/clamp() values.
+- **Do not use numeric Tailwind spacing utilities** (`p-6`, `gap-10`, `w-200`) in the new pages: `globals.css` overrides `--spacing: calc(100vw / var(--bw))`, making them viewport-relative (that scaling, and the `text-*d` utilities, belong to the legacy `src/` components). Use the classes in `portfolio.css`, or arbitrary values like `w-[44px]`.
+- Highlight blue (`--color-highlight`) is for hover states and links only. Every section heading has one italic accent word (`<em>` inside `.display`).
+- Layout primitives: `.container` (1440px max), `.grid12` with `.s3/.s6/.c9`-style span/start classes (stacked below 900px), `.section` (128px / 96px mobile).
 
-- Color scale: `primary`/`secondary`/`tertiary`/`quaternary`/`quinary` (navy-based palette, defined as CSS vars).
-- A fluid, viewport-relative sizing scale (`text-8d` … `text-80d`, `radius-8d/10d/15d`) computed as `calc(N / var(--bw) * 100vw)`, where `--bw` is a "design width" that switches between 375 (mobile), 480 (portrait tablet), and 1280 (default) via media queries. Use these `*d`-suffixed utilities for new type/radius sizing instead of introducing fixed px values, to stay consistent with the rest of the site's fluid scaling.
+### Animation
+
+`components/sections/motion.tsx` (mounted once in the site layout) runs GSAP inside `gsap.matchMedia("(prefers-reduced-motion: no-preference)")`: `[data-hero]` elements fade up with a stagger on load, `[data-reveal]` elements reveal on scroll (`top 85%`, once). Add those attributes to markup rather than writing new timelines. Marquee, availability pulse and the floating caption are CSS keyframes, disabled by a reduced-motion media query.
+
+### Images
+
+`BrowserMockup` and `Portrait` use `next/image` with SVG placeholders in `public/placeholders/` (rendered `unoptimized`). Set a project's `cover`/`screens` in `content/projects.ts` (files under `public/`) to replace them; swap `PORTRAIT` in `components/sections/portrait.tsx` for a real photo.
