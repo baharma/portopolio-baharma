@@ -1,0 +1,1179 @@
+{
+  "version": 1,
+  "template": {
+    "id": "editorial-portfolio",
+    "name": "Quiet Form — Product Designer Portfolio",
+    "type": "profile",
+    "frontend_route": "/"
+  },
+  "website": {
+    "website_name": "quiet-form-product-designer-demo",
+    "workflow": {
+      "workflow.json": [
+        {
+          "name": "seo",
+          "fields": [
+            {
+              "id": "editorial-portfolio-website-seo-title",
+              "key": "title",
+              "label": "SEO and link preview title",
+              "type": "text"
+            },
+            {
+              "id": "editorial-portfolio-website-seo-description",
+              "key": "description",
+              "label": "SEO and link preview description",
+              "type": "textarea"
+            },
+            {
+              "id": "editorial-portfolio-website-seo-image",
+              "key": "image",
+              "label": "Public Open Graph image URL",
+              "type": "image"
+            }
+          ]
+        }
+      ],
+      "workflow_forms": [
+        {
+          "name": "seo",
+          "field_workflow": {
+            "form": {
+              "seo": [
+                {
+                  "key": "title",
+                  "label": "SEO and link preview title",
+                  "type": "text",
+                  "value": "Jordan Lee | Product Designer and Digital Portfolio"
+                },
+                {
+                  "key": "description",
+                  "label": "SEO and link preview description",
+                  "type": "textarea",
+                  "value": "Explore Jordan Lee’s portfolio of thoughtful digital products, brand systems, and user experiences crafted for ambitious teams and growing businesses."
+                },
+                {
+                  "key": "image",
+                  "label": "Public Open Graph image URL",
+                  "type": "image",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "pages": [
+    {
+      "page_number": 1,
+      "page_slug": "home-page",
+      "page_name": "Home",
+      "workflow.json": [
+        {
+          "name": "home_page",
+          "fields": [
+            {
+              "id": "editorial-portfolio-home-page-home-page-hero-main",
+              "key": "hero_main",
+              "label": "Hero introduction",
+              "type": "list",
+              "repeat": false,
+              "fields": [
+                {
+                  "id": "editorial-portfolio-home-page-home-page-hero-main-hero-main-image-profile",
+                  "key": "image_profile",
+                  "label": "Profile image",
+                  "type": "image"
+                },
+                {
+                  "id": "editorial-portfolio-home-page-home-page-hero-main-hero-main-description",
+                  "key": "description",
+                  "label": "Short introduction",
+                  "type": "textarea"
+                },
+                {
+                  "id": "editorial-portfolio-home-page-home-page-hero-main-hero-main-currently",
+                  "key": "currently",
+                  "label": "Current focus",
+                  "type": "list",
+                  "repeat": true,
+                  "fields": [
+                    {
+                      "id": "editorial-portfolio-home-page-home-page-hero-main-hero-main-currently-currently-label",
+                      "key": "label",
+                      "label": "Label",
+                      "type": "text"
+                    },
+                    {
+                      "id": "editorial-portfolio-home-page-home-page-hero-main-hero-main-currently-currently-value",
+                      "key": "value",
+                      "label": "Value",
+                      "type": "text"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "editorial-portfolio-home-page-home-page-list",
+              "key": "list",
+              "label": "Expertise marquee",
+              "type": "list",
+              "repeat": false,
+              "fields": [
+                {
+                  "id": "editorial-portfolio-home-page-home-page-list-list-items",
+                  "key": "items",
+                  "label": "Marquee terms",
+                  "type": "list",
+                  "repeat": true,
+                  "fields": [
+                    {
+                      "id": "editorial-portfolio-home-page-home-page-list-list-items-items-item",
+                      "key": "item",
+                      "label": "Term",
+                      "type": "text"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "editorial-portfolio-home-page-home-page-short-time-line",
+              "key": "short_time_line",
+              "label": "Recent experience timeline",
+              "type": "list",
+              "repeat": true,
+              "fields": [
+                {
+                  "id": "editorial-portfolio-home-page-home-page-short-time-line-short-time-line-timeline",
+                  "key": "timeline",
+                  "label": "Dates",
+                  "type": "text"
+                },
+                {
+                  "id": "editorial-portfolio-home-page-home-page-short-time-line-short-time-line-name-position",
+                  "key": "name_position",
+                  "label": "Position",
+                  "type": "text"
+                },
+                {
+                  "id": "editorial-portfolio-home-page-home-page-short-time-line-short-time-line-company",
+                  "key": "company",
+                  "label": "Company",
+                  "type": "text"
+                },
+                {
+                  "id": "editorial-portfolio-home-page-home-page-short-time-line-short-time-line-description",
+                  "key": "description",
+                  "label": "Experience summary",
+                  "type": "rich-text"
+                },
+                {
+                  "id": "editorial-portfolio-home-page-home-page-short-time-line-short-time-line-tech-stack",
+                  "key": "tech_stack",
+                  "label": "Tools and methods",
+                  "type": "list",
+                  "repeat": true,
+                  "fields": [
+                    {
+                      "id": "editorial-portfolio-home-page-home-page-short-time-line-short-time-line-tech-stack-tech-stack-item",
+                      "key": "item",
+                      "label": "Skill",
+                      "type": "text"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "editorial-portfolio-home-page-home-page-tool",
+              "key": "tool",
+              "label": "Tools and expertise",
+              "type": "list",
+              "repeat": true,
+              "fields": [
+                {
+                  "id": "editorial-portfolio-home-page-home-page-tool-tool-name",
+                  "key": "name",
+                  "label": "Tool name",
+                  "type": "text"
+                },
+                {
+                  "id": "editorial-portfolio-home-page-home-page-tool-tool-icon",
+                  "key": "icon",
+                  "label": "Icon key",
+                  "type": "text"
+                },
+                {
+                  "id": "editorial-portfolio-home-page-home-page-tool-tool-category",
+                  "key": "category",
+                  "label": "Category",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "workflow_forms": [
+        {
+          "name": "home_page",
+          "field_workflow": {
+            "form": {
+              "home_page": [
+                {
+                  "key": "hero_main",
+                  "label": "Hero introduction",
+                  "type": "list",
+                  "value": {
+                    "image_profile": {
+                      "key": "image_profile",
+                      "label": "Profile image",
+                      "type": "image",
+                      "value": ""
+                    },
+                    "description": {
+                      "key": "description",
+                      "label": "Short introduction",
+                      "type": "textarea",
+                      "value": "I’m Jordan, a product designer who turns complex ideas into clear, useful digital experiences for people and the teams who serve them."
+                    },
+                    "currently": [
+                      {
+                        "label": {
+                          "key": "label",
+                          "label": "Label",
+                          "type": "text",
+                          "value": "Based in"
+                        },
+                        "value": {
+                          "key": "value",
+                          "label": "Value",
+                          "type": "text",
+                          "value": "Portland, Oregon"
+                        }
+                      },
+                      {
+                        "label": {
+                          "key": "label",
+                          "label": "Label",
+                          "type": "text",
+                          "value": "Working on"
+                        },
+                        "value": {
+                          "key": "value",
+                          "label": "Value",
+                          "type": "text",
+                          "value": "Product strategy and design systems"
+                        }
+                      },
+                      {
+                        "label": {
+                          "key": "label",
+                          "label": "Label",
+                          "type": "text",
+                          "value": "Open to"
+                        },
+                        "value": {
+                          "key": "value",
+                          "label": "Value",
+                          "type": "text",
+                          "value": "Select freelance projects"
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "key": "list",
+                  "label": "Expertise marquee",
+                  "type": "list",
+                  "value": [
+                    "Product design",
+                    "Prototyping",
+                    "Design systems",
+                    "Creative direction",
+                    "User research"
+                  ]
+                },
+                {
+                  "key": "short_time_line",
+                  "label": "Recent experience timeline",
+                  "type": "list",
+                  "value": [
+                    {
+                      "timeline": {
+                        "key": "timeline",
+                        "label": "Dates",
+                        "type": "text",
+                        "value": "2022 — Present"
+                      },
+                      "name_position": {
+                        "key": "name_position",
+                        "label": "Position",
+                        "type": "text",
+                        "value": "Senior Product Designer"
+                      },
+                      "company": {
+                        "key": "company",
+                        "label": "Company",
+                        "type": "text",
+                        "value": "Northstar Studio"
+                      },
+                      "description": {
+                        "key": "description",
+                        "label": "Experience summary",
+                        "type": "rich-text",
+                        "value": "Lead product design for early-stage teams, from discovery and prototyping through launch. Partner with founders and engineers to shape focused, accessible products."
+                      },
+                      "tech_stack": {
+                        "key": "tech_stack",
+                        "label": "Tools and methods",
+                        "type": "list",
+                        "value": [
+                          "Figma",
+                          "Prototyping",
+                          "Research"
+                        ]
+                      }
+                    },
+                    {
+                      "timeline": {
+                        "key": "timeline",
+                        "label": "Dates",
+                        "type": "text",
+                        "value": "2019 — 2022"
+                      },
+                      "name_position": {
+                        "key": "name_position",
+                        "label": "Position",
+                        "type": "text",
+                        "value": "Product Designer"
+                      },
+                      "company": {
+                        "key": "company",
+                        "label": "Company",
+                        "type": "text",
+                        "value": "Fieldwork Digital"
+                      },
+                      "description": {
+                        "key": "description",
+                        "label": "Experience summary",
+                        "type": "rich-text",
+                        "value": "Designed customer journeys and a shared component library for web products serving independent businesses."
+                      },
+                      "tech_stack": {
+                        "key": "tech_stack",
+                        "label": "Tools and methods",
+                        "type": "list",
+                        "value": [
+                          "Design systems",
+                          "User testing",
+                          "Web apps"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "key": "tool",
+                  "label": "Tools and expertise",
+                  "type": "list",
+                  "value": [
+                    {
+                      "name": {
+                        "key": "name",
+                        "label": "Tool name",
+                        "type": "text",
+                        "value": "Figma"
+                      },
+                      "icon": {
+                        "key": "icon",
+                        "label": "Icon key",
+                        "type": "text",
+                        "value": "SiReact"
+                      },
+                      "category": {
+                        "key": "category",
+                        "label": "Category",
+                        "type": "text",
+                        "value": "Interface design"
+                      }
+                    },
+                    {
+                      "name": {
+                        "key": "name",
+                        "label": "Tool name",
+                        "type": "text",
+                        "value": "Prototyping"
+                      },
+                      "icon": {
+                        "key": "icon",
+                        "label": "Icon key",
+                        "type": "text",
+                        "value": "SiTypescript"
+                      },
+                      "category": {
+                        "key": "category",
+                        "label": "Category",
+                        "type": "text",
+                        "value": "Interaction"
+                      }
+                    },
+                    {
+                      "name": {
+                        "key": "name",
+                        "label": "Tool name",
+                        "type": "text",
+                        "value": "Design systems"
+                      },
+                      "icon": {
+                        "key": "icon",
+                        "label": "Icon key",
+                        "type": "text",
+                        "value": "SiDocker"
+                      },
+                      "category": {
+                        "key": "category",
+                        "label": "Category",
+                        "type": "text",
+                        "value": "Product craft"
+                      }
+                    },
+                    {
+                      "name": {
+                        "key": "name",
+                        "label": "Tool name",
+                        "type": "text",
+                        "value": "User research"
+                      },
+                      "icon": {
+                        "key": "icon",
+                        "label": "Icon key",
+                        "type": "text",
+                        "value": "SiGo"
+                      },
+                      "category": {
+                        "key": "category",
+                        "label": "Category",
+                        "type": "text",
+                        "value": "Discovery"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "page_number": 2,
+      "page_slug": "experience",
+      "page_name": "Experience",
+      "workflow.json": [
+        {
+          "name": "experience",
+          "fields": [
+            {
+              "id": "editorial-portfolio-experience-experience-description",
+              "key": "description",
+              "label": "Experience page introduction",
+              "type": "rich-text"
+            },
+            {
+              "id": "editorial-portfolio-experience-experience-history",
+              "key": "history",
+              "label": "Work experience",
+              "type": "list",
+              "repeat": true,
+              "fields": [
+                {
+                  "id": "editorial-portfolio-experience-experience-history-history-time-line",
+                  "key": "time_line",
+                  "label": "Dates",
+                  "type": "text"
+                },
+                {
+                  "id": "editorial-portfolio-experience-experience-history-history-end-date",
+                  "key": "end_date",
+                  "label": "End date",
+                  "type": "date"
+                },
+                {
+                  "id": "editorial-portfolio-experience-experience-history-history-position",
+                  "key": "position",
+                  "label": "Position",
+                  "type": "text"
+                },
+                {
+                  "id": "editorial-portfolio-experience-experience-history-history-detail",
+                  "key": "detail",
+                  "label": "Company and location",
+                  "type": "text"
+                },
+                {
+                  "id": "editorial-portfolio-experience-experience-history-history-description",
+                  "key": "description",
+                  "label": "Responsibilities and outcomes",
+                  "type": "rich-text"
+                },
+                {
+                  "id": "editorial-portfolio-experience-experience-history-history-image",
+                  "key": "image",
+                  "label": "Supporting images",
+                  "type": "image-list"
+                },
+                {
+                  "id": "editorial-portfolio-experience-experience-history-history-stack-tech",
+                  "key": "stack_tech",
+                  "label": "Tools and skills",
+                  "type": "list",
+                  "repeat": true,
+                  "fields": [
+                    {
+                      "id": "editorial-portfolio-experience-experience-history-history-stack-tech-stack-tech-item",
+                      "key": "item",
+                      "label": "Skill",
+                      "type": "text"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "workflow_forms": [
+        {
+          "name": "experience",
+          "field_workflow": {
+            "form": {
+              "experience": [
+                {
+                  "key": "description",
+                  "label": "Experience page introduction",
+                  "type": "rich-text",
+                  "value": "A selection of roles where I helped teams make digital products easier to understand, use, and grow."
+                },
+                {
+                  "key": "history",
+                  "label": "Work experience",
+                  "type": "list",
+                  "value": [
+                    {
+                      "time_line": {
+                        "key": "time_line",
+                        "label": "Dates",
+                        "type": "text",
+                        "value": "2022 — Present"
+                      },
+                      "end_date": {
+                        "key": "end_date",
+                        "label": "End date",
+                        "type": "date",
+                        "value": ""
+                      },
+                      "position": {
+                        "key": "position",
+                        "label": "Position",
+                        "type": "text",
+                        "value": "Senior Product Designer"
+                      },
+                      "detail": {
+                        "key": "detail",
+                        "label": "Company and location",
+                        "type": "text",
+                        "value": "Northstar Studio · Remote"
+                      },
+                      "description": {
+                        "key": "description",
+                        "label": "Responsibilities and outcomes",
+                        "type": "rich-text",
+                        "value": "I guide product discovery and design across a portfolio of early-stage products. Recent work includes simplifying onboarding, establishing a reusable design system, and helping teams validate concepts with customers."
+                      },
+                      "image": {
+                        "key": "image",
+                        "label": "Supporting images",
+                        "type": "image-list",
+                        "value": []
+                      },
+                      "stack_tech": {
+                        "key": "stack_tech",
+                        "label": "Tools and skills",
+                        "type": "list",
+                        "value": [
+                          "Product strategy",
+                          "Figma",
+                          "Prototyping"
+                        ]
+                      }
+                    },
+                    {
+                      "time_line": {
+                        "key": "time_line",
+                        "label": "Dates",
+                        "type": "text",
+                        "value": "2019 — 2022"
+                      },
+                      "end_date": {
+                        "key": "end_date",
+                        "label": "End date",
+                        "type": "date",
+                        "value": "2022-06-30"
+                      },
+                      "position": {
+                        "key": "position",
+                        "label": "Position",
+                        "type": "text",
+                        "value": "Product Designer"
+                      },
+                      "detail": {
+                        "key": "detail",
+                        "label": "Company and location",
+                        "type": "text",
+                        "value": "Fieldwork Digital · Portland, OR"
+                      },
+                      "description": {
+                        "key": "description",
+                        "label": "Responsibilities and outcomes",
+                        "type": "rich-text",
+                        "value": "Worked with engineering and research partners to improve core journeys for small business customers. Delivered responsive interface patterns and a component library adopted across three products."
+                      },
+                      "image": {
+                        "key": "image",
+                        "label": "Supporting images",
+                        "type": "image-list",
+                        "value": []
+                      },
+                      "stack_tech": {
+                        "key": "stack_tech",
+                        "label": "Tools and skills",
+                        "type": "list",
+                        "value": [
+                          "UX research",
+                          "Design systems",
+                          "Accessibility"
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "page_number": 3,
+      "page_slug": "about",
+      "page_name": "About",
+      "workflow.json": [
+        {
+          "name": "about",
+          "fields": [
+            {
+              "id": "editorial-portfolio-about-about-schoold",
+              "key": "schoold",
+              "label": "Education and learning",
+              "type": "list",
+              "repeat": true,
+              "fields": [
+                {
+                  "id": "editorial-portfolio-about-about-schoold-schoold-timeline",
+                  "key": "timeline",
+                  "label": "Dates",
+                  "type": "text"
+                },
+                {
+                  "id": "editorial-portfolio-about-about-schoold-schoold-name",
+                  "key": "name",
+                  "label": "School or program",
+                  "type": "text"
+                },
+                {
+                  "id": "editorial-portfolio-about-about-schoold-schoold-major",
+                  "key": "major",
+                  "label": "Field of study",
+                  "type": "text"
+                },
+                {
+                  "id": "editorial-portfolio-about-about-schoold-schoold-description",
+                  "key": "description",
+                  "label": "Details",
+                  "type": "rich-text"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "workflow_forms": [
+        {
+          "name": "about",
+          "field_workflow": {
+            "form": {
+              "about": [
+                {
+                  "key": "schoold",
+                  "label": "Education and learning",
+                  "type": "list",
+                  "value": [
+                    {
+                      "timeline": {
+                        "key": "timeline",
+                        "label": "Dates",
+                        "type": "text",
+                        "value": "2015 — 2019"
+                      },
+                      "name": {
+                        "key": "name",
+                        "label": "School or program",
+                        "type": "text",
+                        "value": "Pacific Northwest College of Art"
+                      },
+                      "major": {
+                        "key": "major",
+                        "label": "Field of study",
+                        "type": "text",
+                        "value": "BFA, Communication Design"
+                      },
+                      "description": {
+                        "key": "description",
+                        "label": "Details",
+                        "type": "rich-text",
+                        "value": "Built a foundation in visual communication, design research, and collaborative studio practice. Coursework included information design, typography, and interactive media."
+                      }
+                    },
+                    {
+                      "timeline": {
+                        "key": "timeline",
+                        "label": "Dates",
+                        "type": "text",
+                        "value": "2021 — Ongoing"
+                      },
+                      "name": {
+                        "key": "name",
+                        "label": "School or program",
+                        "type": "text",
+                        "value": "Independent study"
+                      },
+                      "major": {
+                        "key": "major",
+                        "label": "Field of study",
+                        "type": "text",
+                        "value": "Accessibility and service design"
+                      },
+                      "description": {
+                        "key": "description",
+                        "label": "Details",
+                        "type": "rich-text",
+                        "value": "Continuing professional learning through workshops, peer critiques, and applied projects focused on inclusive digital services."
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "page_number": 4,
+      "page_slug": "project",
+      "page_name": "Projects",
+      "workflow.json": [
+        {
+          "name": "project",
+          "fields": [
+            {
+              "id": "editorial-portfolio-project-products",
+              "key": "products",
+              "label": "Portfolio projects",
+              "type": "list",
+              "repeat": true,
+              "fields": [
+                {
+                  "id": "editorial-portfolio-project-name",
+                  "key": "name",
+                  "label": "Product name",
+                  "type": "text"
+                },
+                {
+                  "id": "editorial-portfolio-project-category",
+                  "key": "category",
+                  "label": "Project category",
+                  "type": "text"
+                },
+                {
+                  "id": "editorial-portfolio-project-description",
+                  "key": "description",
+                  "label": "Project details",
+                  "type": "list",
+                  "repeat": false,
+                  "fields": [
+                    {
+                      "id": "editorial-portfolio-project-name-project",
+                      "key": "name_project",
+                      "label": "Project title",
+                      "type": "text"
+                    },
+                    {
+                      "id": "editorial-portfolio-project-type-project",
+                      "key": "type_project",
+                      "label": "Project type",
+                      "type": "text"
+                    },
+                    {
+                      "id": "editorial-portfolio-project-description-short",
+                      "key": "description_short",
+                      "label": "Short description",
+                      "type": "textarea"
+                    },
+                    {
+                      "id": "editorial-portfolio-project-description-detail",
+                      "key": "description_detail",
+                      "label": "Case study",
+                      "type": "rich-text"
+                    },
+                    {
+                      "id": "editorial-portfolio-project-image-list",
+                      "key": "image_list",
+                      "label": "Project images",
+                      "type": "image-list"
+                    },
+                    {
+                      "id": "editorial-portfolio-project-list-stack",
+                      "key": "list_stack",
+                      "label": "Technology and skills",
+                      "type": "list",
+                      "repeat": true,
+                      "fields": [
+                        {
+                          "id": "editorial-portfolio-project-item",
+                          "key": "item",
+                          "label": "Skill",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "editorial-portfolio-project-project-url",
+                      "key": "project_url",
+                      "label": "Project URL",
+                      "type": "text"
+                    },
+                    {
+                      "id": "editorial-portfolio-project-year",
+                      "key": "year",
+                      "label": "Year",
+                      "type": "number"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "workflow_forms": [
+        {
+          "name": "project",
+          "field_workflow": {
+            "form": {
+              "project": [
+                {
+                  "key": "products",
+                  "label": "Portfolio projects",
+                  "type": "list",
+                  "value": [
+                    {
+                      "name": {
+                        "key": "name",
+                        "label": "Product name",
+                        "type": "text",
+                        "value": "ClearLedger"
+                      },
+                      "category": {
+                        "key": "category",
+                        "label": "Project category",
+                        "type": "text",
+                        "value": "Fintech"
+                      },
+                      "description": {
+                        "key": "description",
+                        "label": "Project details",
+                        "type": "list",
+                        "value": {
+                          "name_project": {
+                            "key": "name_project",
+                            "label": "Project title",
+                            "type": "text",
+                            "value": "ClearLedger — Simple money management"
+                          },
+                          "type_project": {
+                            "key": "type_project",
+                            "label": "Project type",
+                            "type": "text",
+                            "value": "Web application"
+                          },
+                          "description_short": {
+                            "key": "description_short",
+                            "label": "Short description",
+                            "type": "textarea",
+                            "value": "A calm, accessible dashboard that helps independent teams understand cash flow and make confident decisions."
+                          },
+                          "description_detail": {
+                            "key": "description_detail",
+                            "label": "Case study",
+                            "type": "rich-text",
+                            "value": "<p>Designed a financial overview that brings balances, upcoming invoices, and runway into one clear workspace. A shared component system helped the product team deliver new reporting views consistently.</p>"
+                          },
+                          "image_list": {
+                            "key": "image_list",
+                            "label": "Project images",
+                            "type": "image-list",
+                            "value": []
+                          },
+                          "list_stack": {
+                            "key": "list_stack",
+                            "label": "Technology and skills",
+                            "type": "list",
+                            "value": [
+                              "Product design",
+                              "React",
+                              "TypeScript",
+                              "Accessibility"
+                            ]
+                          },
+                          "project_url": {
+                            "key": "project_url",
+                            "label": "Project URL",
+                            "type": "text",
+                            "value": ""
+                          },
+                          "year": {
+                            "key": "year",
+                            "label": "Year",
+                            "type": "number",
+                            "value": 2025
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": {
+                        "key": "name",
+                        "label": "Product name",
+                        "type": "text",
+                        "value": "Trail Notes"
+                      },
+                      "category": {
+                        "key": "category",
+                        "label": "Project category",
+                        "type": "text",
+                        "value": "Productivity"
+                      },
+                      "description": {
+                        "key": "description",
+                        "label": "Project details",
+                        "type": "list",
+                        "value": {
+                          "name_project": {
+                            "key": "name_project",
+                            "label": "Project title",
+                            "type": "text",
+                            "value": "Trail Notes — Field journal"
+                          },
+                          "type_project": {
+                            "key": "type_project",
+                            "label": "Project type",
+                            "type": "text",
+                            "value": "Mobile application"
+                          },
+                          "description_short": {
+                            "key": "description_short",
+                            "label": "Short description",
+                            "type": "textarea",
+                            "value": "A lightweight field journal for capturing observations, routes, and photographs while exploring outdoors."
+                          },
+                          "description_detail": {
+                            "key": "description_detail",
+                            "label": "Case study",
+                            "type": "rich-text",
+                            "value": "<p>Created a quick-entry flow that works in bright light and with limited connectivity. Searchable entries connect notes, dates, and locations without interrupting the experience.</p>"
+                          },
+                          "image_list": {
+                            "key": "image_list",
+                            "label": "Project images",
+                            "type": "image-list",
+                            "value": []
+                          },
+                          "list_stack": {
+                            "key": "list_stack",
+                            "label": "Technology and skills",
+                            "type": "list",
+                            "value": [
+                              "Interaction design",
+                              "React Native",
+                              "Prototyping"
+                            ]
+                          },
+                          "project_url": {
+                            "key": "project_url",
+                            "label": "Project URL",
+                            "type": "text",
+                            "value": ""
+                          },
+                          "year": {
+                            "key": "year",
+                            "label": "Year",
+                            "type": "number",
+                            "value": 2024
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "page_number": 5,
+      "page_slug": "contacts",
+      "page_name": "Contact",
+      "workflow.json": [
+        {
+          "name": "contacts",
+          "fields": [
+            {
+              "id": "editorial-portfolio-contacts-email",
+              "key": "email",
+              "label": "Contact email",
+              "type": "email"
+            },
+            {
+              "id": "editorial-portfolio-contacts-location",
+              "key": "location",
+              "label": "Location",
+              "type": "text"
+            },
+            {
+              "id": "editorial-portfolio-contacts-availability",
+              "key": "availability",
+              "label": "Availability",
+              "type": "text"
+            },
+            {
+              "id": "editorial-portfolio-contacts-intro",
+              "key": "intro",
+              "label": "Contact introduction",
+              "type": "textarea"
+            },
+            {
+              "id": "editorial-portfolio-contacts-social-links",
+              "key": "social_links",
+              "label": "Social profiles",
+              "type": "list",
+              "repeat": true,
+              "fields": [
+                {
+                  "id": "editorial-portfolio-contacts-label",
+                  "key": "label",
+                  "label": "Link label",
+                  "type": "text"
+                },
+                {
+                  "id": "editorial-portfolio-contacts-url",
+                  "key": "url",
+                  "label": "Profile URL",
+                  "type": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "workflow_forms": [
+        {
+          "name": "contacts",
+          "field_workflow": {
+            "form": {
+              "contacts": [
+                {
+                  "key": "email",
+                  "label": "Contact email",
+                  "type": "email",
+                  "value": "jordan.lee@example.com"
+                },
+                {
+                  "key": "location",
+                  "label": "Location",
+                  "type": "text",
+                  "value": "Portland, Oregon · Available remotely"
+                },
+                {
+                  "key": "availability",
+                  "label": "Availability",
+                  "type": "text",
+                  "value": "Open to select freelance projects and product design roles"
+                },
+                {
+                  "key": "intro",
+                  "label": "Contact introduction",
+                  "type": "textarea",
+                  "value": "Have a project, a role, or a question? Send a note and I’ll reply as soon as I can."
+                },
+                {
+                  "key": "social_links",
+                  "label": "Social profiles",
+                  "type": "list",
+                  "value": [
+                    {
+                      "label": {
+                        "key": "label",
+                        "label": "Link label",
+                        "type": "text",
+                        "value": "LinkedIn"
+                      },
+                      "url": {
+                        "key": "url",
+                        "label": "Profile URL",
+                        "type": "text",
+                        "value": "https://www.linkedin.com/"
+                      }
+                    },
+                    {
+                      "label": {
+                        "key": "label",
+                        "label": "Link label",
+                        "type": "text",
+                        "value": "GitHub"
+                      },
+                      "url": {
+                        "key": "url",
+                        "label": "Profile URL",
+                        "type": "text",
+                        "value": "https://github.com/"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

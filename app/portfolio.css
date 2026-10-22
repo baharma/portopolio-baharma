@@ -16,18 +16,18 @@
   flex-direction: column;
 }
 .site main { flex: 1; }
-.site a { color: inherit; text-decoration: none; }
-.site h1, .site h2, .site h3, .site p, .site ul, .site dl, .site dd { margin: 0; padding: 0; }
-.site ul { list-style: none; }
+:where(.site) a { color: inherit; text-decoration: none; }
+:where(.site) :is(h1, h2, h3, p, ul, ol, dl, dd, figure) { margin: 0; padding: 0; }
+:where(.site) :is(ul, ol) { list-style: none; }
 .site :focus-visible { outline: 2px solid var(--color-highlight); outline-offset: 3px; border-radius: 4px; }
 .site .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* ---------- layout ---------- */
 .container { max-width: 1440px; margin-inline: auto; padding-inline: clamp(20px, 5.6vw, 80px); width: 100%; }
 .grid12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; }
-.s3 { grid-column: span 3; } .s4 { grid-column: span 4; } .s5 { grid-column: span 5; }
-.s6 { grid-column: span 6; } .s7 { grid-column: span 7; } .s8 { grid-column: span 8; }
-.s9 { grid-column: span 9; } .s12 { grid-column: 1 / -1; }
+.s3 { grid-column-end: span 3; } .s4 { grid-column-end: span 4; } .s5 { grid-column-end: span 5; }
+.s6 { grid-column-end: span 6; } .s7 { grid-column-end: span 7; } .s8 { grid-column-end: span 8; }
+.s9 { grid-column-end: span 9; } .s12 { grid-column: 1 / -1; }
 .c1 { grid-column-start: 1; } .c6 { grid-column-start: 6; } .c9 { grid-column-start: 9; }
 .c4 { grid-column-start: 4; }
 .section { padding-top: 128px; padding-bottom: 128px; border-top: 1px solid var(--color-hairline); }
@@ -254,7 +254,7 @@ a:hover > .ext, a:hover .ext { transform: translate(2px, -2px); }
 @media (max-width: 899.98px) { .contact-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
 /* ---------- about ---------- */
-.bio { display: grid; gap: 22px; font-size: 19px; line-height: 1.65; max-width: 60ch; }
+.bio { display: grid; align-content: start; gap: 22px; font-size: 19px; line-height: 1.65; max-width: 60ch; }
 .do-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .do-card { background: #fff; border: 1px solid var(--color-hairline); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 14px; min-height: 280px; }
 .do-card h3 { font-family: var(--serif); font-weight: 400; font-size: 34px; line-height: 1.05; color: var(--color-ink); }
