@@ -3,7 +3,7 @@
 import * as simpleIcons from "simple-icons";
 import { site } from "@/content/site";
 
-const API = process.env.CMS_API_URL ?? "https://api.baharma.my.id/api";
+const API = process.env.CMS_API_URL ?? process.env.API_SECRET ?? "https://api.baharma.my.id/api";
 const SLUG = "baharma";
 // Fallback window; the CMS webhook (POST /api/revalidate) refreshes content immediately.
 const REVALIDATE = 300;
@@ -147,45 +147,105 @@ export type Project = {
     slug: string;
     title: string;
     category?: string;
+    role?: string;
+    period?: string;
     filter: string;
     year?: number;
     description?: string;
     detail?: string[];
     tags: string[];
     liveUrl?: string;
+    githubUrl?: string;
     cover?: string;
     screens?: { src: string; caption: string }[];
 };
 
+/** Product API (`/product?website_id=…`) needs the API_SECRET_KEY bearer token, so it is only called server-side. */
+const PRODUCT_WEBSITE_ID = 13;
+
+async function fetchProducts(): Promise<Raw[] | null> {
+    const token = process.env.API_SECRET_KEY;
+    if (!token) return null;
+    try {
+        const res = await fetch(`${API}/product?website_id=${PRODUCT_WEBSITE_ID}&sort=newest&limit=100`, {
+            headers: { Authorization: `Bearer ${token}` },
+            next: { revalidate: REVALIDATE, tags: ["projects"] },
+        });
+        if (!res.ok) return null;
+        const json = await res.json();
+        return Array.isArray(json?.data) ? json.data : null;
+    } catch {
+        return null;
+    }
+}
+
+/** A project before its slug is made unique. */
+type ProjectDraft = Omit<Project, "slug"> & { slug?: string };
+
+const yearOf = (s?: string) => {
+    const ys = s?.match(/\d{4}/g);
+    return ys ? Number(ys[ys.length - 1]) : undefined;
+};
+
+/** Product item: fields live in `description.value.project` (title, slug, summary, description, tech_stack, image, images, ...). */
+function fromProduct(raw: Raw): ProjectDraft | null {
+    const p = record((record(raw).description as { project?: Raw } | undefined)?.project);
+    const title = str(p.title);
+    if (!title) return null;
+    const shots = images(p.images);
+    const period = str(p.period);
+    return {
+        slug: str(p.slug),
+        title,
+        role: str(p.role),
+        period,
+        filter: "Other",
+        year: yearOf(period),
+        description: str(p.summary),
+        detail: lines(p.description),
+        tags: strings(p.tech_stack),
+        liveUrl: str(p.live_url),
+        githubUrl: str(p.github_url),
+        cover: str(p.image) ?? shots[0],
+        screens: shots.map((src) => ({ src, caption: title })),
+    };
+}
+
+/** Legacy CMS "projects" page item: fields live in `description` (name_project, description_short, ...). */
+function fromPage(raw: Raw): ProjectDraft | null {
+    const r = record(raw);
+    const d = record(r.description);
+    const title = str(d.name_project) ?? str(r.name);
+    if (!title) return null;
+    const imgs = images(d.image_list);
+    const year = Number(str(d.year));
+    const category = str(d.type_project) ?? str(r.category);
+    return {
+        title,
+        category,
+        filter: category ?? "Other",
+        year: Number.isFinite(year) && year > 0 ? year : undefined,
+        description: str(d.description_short),
+        detail: lines(d.description_detail),
+        tags: strings(d.list_stack),
+        liveUrl: str(d.project_url),
+        cover: imgs[0],
+        screens: imgs.slice(1).map((src) => ({ src, caption: title })),
+    };
+}
+
+/** Projects come from the product API; the CMS "projects" page is the fallback when it is unreachable. */
 export async function getProjects(): Promise<Project[]> {
-    const data = await fetchPage("projects");
+    const products = await fetchProducts();
+    const items = products ? products.map(fromProduct) : list((await fetchPage("projects"))?.products).map(fromPage);
     const seen = new Set<string>();
-    return list(data?.products).flatMap((raw): Project[] => {
-        const r = record(raw);
-        const d = record(r.description);
-        const title = str(d.name_project) ?? str(r.name);
-        if (!title) return [];
-        let slug = slugify(title) || "project";
-        for (let n = 2; seen.has(slug); n++) slug = `${slugify(title)}-${n}`;
+    return items.flatMap((it): Project[] => {
+        if (!it) return [];
+        const base = slugify(it.slug ?? it.title) || "project";
+        let slug = base;
+        for (let n = 2; seen.has(slug); n++) slug = `${base}-${n}`;
         seen.add(slug);
-        const imgs = images(d.image_list);
-        const year = Number(str(d.year));
-        const category = str(d.type_project) ?? str(r.category);
-        return [
-            {
-                slug,
-                title,
-                category,
-                filter: category ?? "Other",
-                year: Number.isFinite(year) && year > 0 ? year : undefined,
-                description: str(d.description_short),
-                detail: lines(d.description_detail),
-                tags: strings(d.list_stack),
-                liveUrl: str(d.project_url),
-                cover: imgs[0],
-                screens: imgs.slice(1).map((src) => ({ src, caption: title })),
-            },
-        ];
+        return [{ ...it, slug }];
     });
 }
 
