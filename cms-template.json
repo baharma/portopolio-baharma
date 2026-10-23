@@ -517,6 +517,12 @@
                   "type": "text"
                 },
                 {
+                  "id": "editorial-portfolio-experience-experience-history-history-employment-type",
+                  "key": "employment_type",
+                  "label": "Employment type (e.g. Full-time, Freelance)",
+                  "type": "text"
+                },
+                {
                   "id": "editorial-portfolio-experience-experience-history-history-description",
                   "key": "description",
                   "label": "Responsibilities and outcomes",
@@ -590,6 +596,12 @@
                         "type": "text",
                         "value": "Northstar Studio · Remote"
                       },
+                      "employment_type": {
+                        "key": "employment_type",
+                        "label": "Employment type (e.g. Full-time, Freelance)",
+                        "type": "text",
+                        "value": "Full-time"
+                      },
                       "description": {
                         "key": "description",
                         "label": "Responsibilities and outcomes",
@@ -637,6 +649,12 @@
                         "label": "Company and location",
                         "type": "text",
                         "value": "Fieldwork Digital · Portland, OR"
+                      },
+                      "employment_type": {
+                        "key": "employment_type",
+                        "label": "Employment type (e.g. Full-time, Freelance)",
+                        "type": "text",
+                        "value": "Full-time"
                       },
                       "description": {
                         "key": "description",

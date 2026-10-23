@@ -1,14 +1,14 @@
 import Image from "next/image";
 import { site } from "@/content/site";
 
-// TODO: replace /placeholders/portrait.svg with a real photo (e.g. /portrait.jpg).
-const PORTRAIT = "/placeholders/portrait.svg";
+// Falls back to the placeholder until the CMS "Profile image" (home › hero_main.image_profile) is set.
+const PLACEHOLDER = "/placeholders/portrait.svg";
 
-export default function Portrait() {
+export default function Portrait({ src }: { src?: string }) {
     return (
         <div className="portrait-wrap" data-hero>
-            <div className="duotone">
-                <Image src={PORTRAIT} alt="" fill priority sizes="(max-width: 900px) 100vw, 33vw" unoptimized />
+            <div className={`duotone${src ? " photo" : ""}`}>
+                <Image src={src ?? PLACEHOLDER} alt="" fill priority sizes="(max-width: 900px) 100vw, 33vw" unoptimized />
             </div>
             <div className="float-card">
                 <svg width="14" height="16" viewBox="0 0 14 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">

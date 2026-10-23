@@ -126,6 +126,8 @@ a:hover > .ext, a:hover .ext { transform: translate(2px, -2px); }
 .duotone { position: relative; border-radius: var(--radius-card); overflow: hidden; aspect-ratio: 4 / 5; background: #fff; }
 .duotone img { object-fit: cover; filter: grayscale(1) contrast(1.05); }
 .duotone::after { content: ""; position: absolute; inset: 0; background: var(--color-accent); mix-blend-mode: multiply; }
+.duotone.photo img { filter: none; object-position: center 30%; }
+.duotone.photo::after { display: none; }
 .float-card { position: absolute; left: -36px; bottom: 36px; display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; background: #fff; border: 1px solid var(--color-hairline); border-radius: 16px; font-size: 14px; color: var(--color-ink); box-shadow: var(--shadow-hover); animation: float 6s ease-in-out infinite; }
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 .meta-row { margin-top: 72px; padding-top: 28px; border-top: 1px solid var(--color-hairline-strong); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }

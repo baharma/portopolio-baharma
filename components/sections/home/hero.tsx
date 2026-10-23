@@ -26,7 +26,7 @@ export default async function Hero() {
                         </div>
                     </div>
                     <div className="s4 c9">
-                        <Portrait />
+                        <Portrait src={home.photo} />
                     </div>
                 </div>
                 <dl className="meta-row" data-hero>

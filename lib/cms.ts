@@ -130,6 +130,7 @@ export async function getExperience(): Promise<{ intro?: string; items: Experien
             id: `exp-${i}`,
             role: str(r.position),
             company: str(r.detail),
+            type: str(r.employment_type),
             start: range.start,
             end: endDate ? endDate.slice(0, 7) : range.end,
             bullets: lines(r.description),
@@ -219,6 +220,7 @@ const findIcon = (...names: (string | undefined)[]) => {
 
 export type Home = {
     intro?: string;
+    photo?: string;
     currently: { label: string; value?: string }[];
     marquee: string[];
     tools: Tool[];
@@ -241,6 +243,7 @@ export async function getHome(): Promise<Home> {
     });
     return {
         intro: str(hero.description),
+        photo: str(hero.image_profile),
         currently,
         marquee: strings(unwrap(data?.list)),
         tools,

@@ -7,6 +7,7 @@ import TagPills from "@/components/ui/tag-pill";
 export default async function ExperiencePreview() {
     const { items: experience } = await getExperience();
     if (experience.length === 0) return null;
+    console.log("experience", experience);
     return (
         <section id="experience" className="section" aria-labelledby="exp-title">
             <div className="container">
@@ -15,7 +16,7 @@ export default async function ExperiencePreview() {
                     <h2 id="exp-title" className="display h2" data-reveal style={{ marginTop: 20 }}>A short <em>timeline</em></h2>
                 </div>
                 <ol style={{ listStyle: "none", margin: 0, padding: 0 }}>
-                    {experience.map((e) => (
+                    {experience.slice(0, 2).map((e) => (
                         <li key={e.id} className="tl-row grid12" data-reveal>
                             <p className="tl-date s3">{formatRange(e)}</p>
                             <div className={`tl-main s6${e.end ? "" : " current"}`}>

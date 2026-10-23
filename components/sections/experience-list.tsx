@@ -3,6 +3,7 @@ import { formatDuration, formatRange } from "@/lib/format";
 import TagPills from "@/components/ui/tag-pill";
 
 export default function ExperienceList({ experience }: { experience: Experience[] }) {
+
     return (
         <section className="container" style={{ paddingBlock: "0 128px" }} aria-label="Roles">
             <ol style={{ listStyle: "none", margin: 0, padding: 0 }}>
