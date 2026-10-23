@@ -20,9 +20,9 @@ function revalidate(secret: string | null, tag: string | null) {
     }
 
     const tagsToRevalidate = tag ? [tag] : KNOWN_TAGS
-    // "max" fully purges the tag immediately (Next.js 16 requires this second
-    // argument; omitting it is deprecated in favor of updateTag/explicit profile).
-    tagsToRevalidate.forEach((t) => revalidateTag(t, "max"))
+    // { expire: 0 } expires the tag immediately so the next visit gets fresh CMS data.
+    // ("max" would be stale-while-revalidate: the first visit after a webhook still sees old content.)
+    tagsToRevalidate.forEach((t) => revalidateTag(t, { expire: 0 }))
 
     return NextResponse.json({ revalidated: tagsToRevalidate, now: Date.now() })
 }
