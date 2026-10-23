@@ -14,7 +14,7 @@ export default function ProjectCard({ project, featured }: { project: Project; f
                         Featured
                     </span>
                 )}
-                <div className="card-top label">
+                <div className="card-top kicker">
                     <span>{project.category}</span>
                     <span>{project.year}</span>
                 </div>

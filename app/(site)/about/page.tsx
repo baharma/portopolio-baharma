@@ -51,9 +51,8 @@ export default function AboutPage() {
             <h2 id="do-title" className="display h2" data-reveal>What I <em>do</em></h2>
           </div>
           <ul className="do-grid">
-            {doing.map((d, i) => (
+            {doing.map((d) => (
               <li key={d.title} className="do-card" data-reveal>
-                <span className="accent-num">{String(i + 1).padStart(2, "0")}</span>
                 <h3>{d.title}</h3>
                 <p className="label">{d.tech}</p>
               </li>

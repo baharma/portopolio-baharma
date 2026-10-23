@@ -11,7 +11,6 @@ export default function ProjectsExplorer({ projects }: { projects: Project[] }) 
     const [active, setActive] = useState<string>("All");
     const count = (f: string) => (f === "All" ? projects.length : projects.filter((p) => p.filter === f).length);
     const visible = active === "All" ? projects : projects.filter((p) => p.filter === active);
-    const pad = (n: number) => String(n).padStart(2, "0");
 
     return (
         <>
@@ -32,7 +31,6 @@ export default function ProjectsExplorer({ projects }: { projects: Project[] }) 
                                 <BrowserMockup label={p.slug} src={p.cover} alt={`${p.title} screenshot`} />
                             </Link>
                             <div className={`s4 ${flip ? "c1" : "c9"}`}>
-                                <p className="accent-num">{pad(i + 1)} / {pad(visible.length)}</p>
                                 <h2 className="proj-title">{p.title}</h2>
                                 {p.description && <p className="body">{p.description}</p>}
                                 <div className="meta-pairs">
