@@ -10,7 +10,7 @@ Personal portfolio for Aditya Dharma (baharma.my.id, repo `baharma/portopolio-ba
 flowchart LR
   R["app/(main)/**/page.tsx<br/>thin wrapper"] --> S["src/sections/&lt;area&gt;/index.tsx<br/>async Server Component"]
   S --> F["src/service/api/server.ts<br/>unstable_cache fetchers"]
-  F --> H["src/service/api/http.ts<br/>axios + Bearer API_SECRET_KEY"]
+  F --> H["src/service/api/http.ts<br/>axios + Bearer API_SECRET"]
   H --> CMS[(External CMS API)]
   S -->|plain props| C["sibling files / src/component<br/>server or 'use client'"]
   Form["contact/form.tsx (client)"] -->|POST JSON| P["app/api/contact/route.ts"] --> H
@@ -65,7 +65,7 @@ npx tsc --noEmit     # standalone type check (no script for it)
 curl "http://localhost:3000/api/revalidate?secret=$REVALIDATE_SECRET&tag=home"
 ```
 
-You need a `.env` file at the repo root (gitignored; there is no `.env.example`) with `NEXT_PUBLIC_API_URL`, `API_SECRET_KEY` and `REVALIDATE_SECRET`. Variables without the `NEXT_PUBLIC_` prefix are `undefined` in client bundles.
+You need a `.env` file at the repo root (gitignored; there is no `.env.example`) with `API_SECRET` and `REVALIDATE_SECRET` (base URL comes from optional `CMS_API_URL`). Variables without the `NEXT_PUBLIC_` prefix are `undefined` in client bundles.
 
 ## Code Conventions & Common Patterns
 
@@ -113,5 +113,5 @@ You need a `.env` file at the repo root (gitignored; there is no `.env.example`)
   - `npm run lint`. Baseline as of this writing: 14 errors and 10 warnings, mostly `no-explicit-any` and unused imports in `src/sections/home/*`, plus `<a href="/blog/...">` in `home/blog.tsx`. Don't add new errors.
   - `npx tsc --noEmit`, which currently passes.
   - `npm run build`.
-- Verify UI changes manually with `npm run dev` against a real `NEXT_PUBLIC_API_URL`. Check mobile (<768px), portrait tablet and desktop widths, because sizing depends on `--bw`.
+- Verify UI changes manually with `npm run dev` against the real CMS API. Check mobile (<768px), portrait tablet and desktop widths, because sizing depends on `--bw`.
 - After changing CMS content or fetchers, hit `/api/revalidate` instead of waiting out the 3600 s cache.

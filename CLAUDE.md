@@ -27,7 +27,7 @@ Next.js 16 App Router personal portfolio (baharma.my.id), Tailwind v4 + GSAP. Co
 
 ### Legacy CMS code (unused by pages now)
 
-`src/` (sections, components, `src/service/api/*` with `unstable_cache` fetchers, `uitls/gsapUtils.ts`) and `app/api/{contact,revalidate}` are kept from the previous CMS-driven site but nothing in `app/(site)` imports them. `/api/contact` is still a working same-origin proxy (attaches `API_SECRET_KEY` server-side; any authenticated client write should go through such a route). Env vars: `NEXT_PUBLIC_API_URL`, `API_SECRET_KEY` — only needed by that legacy code; `REVALIDATE_SECRET` is used by `/api/revalidate`. Don't build new features on `src/`.
+`src/` (sections, components, `src/service/api/*` with `unstable_cache` fetchers, `uitls/gsapUtils.ts`) and `app/api/{contact,revalidate}` are kept from the previous CMS-driven site but nothing in `app/(site)` imports them. `/api/contact` is still a working same-origin proxy (attaches `API_SECRET` server-side; any authenticated client write should go through such a route). Env vars: `API_SECRET` (base URL: optional `CMS_API_URL`) — only needed by that legacy code; `REVALIDATE_SECRET` is used by `/api/revalidate`. Don't build new features on `src/`.
 
 `AGENTS.md` documents only this legacy CMS architecture (`app/(main)`, `/[slug]`, `src/` conventions) and is outdated for the current site; trust this file where they disagree. `README.md` is unmodified create-next-app boilerplate.
 

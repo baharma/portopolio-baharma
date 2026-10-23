@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server"
 import { http } from "@/src/service/api/http"
 
 // Same-origin proxy for the contact form: the browser POSTs plain JSON here
-// (no auth), and the server attaches the Authorization: Bearer API_SECRET_KEY
+// (no auth), and the server attaches the Authorization: Bearer API_SECRET
 // header (via http()) before forwarding to the email API. Keeps the secret
 // key and user_id off the client.
 export async function POST(request: NextRequest) {
