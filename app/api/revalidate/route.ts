@@ -1,8 +1,9 @@
 import { revalidateTag } from "next/cache"
+import { CMS_TAGS } from "@/lib/cms"
 import { NextResponse, type NextRequest } from "next/server"
 
-// All tags currently attached to unstable_cache() calls in src/service/api/server.ts.
-const KNOWN_TAGS = ["main", "home", "experience", "about-me", "products"] as const
+// Tags attached to the CMS fetches in lib/cms.ts (one per CMS page).
+const KNOWN_TAGS = CMS_TAGS
 
 // Manual cache-busting endpoint: call this after editing content in the CMS
 // so the change shows up immediately instead of waiting out the 1h revalidate
@@ -16,7 +17,7 @@ export async function GET(request: NextRequest) {
     }
 
     const tag = request.nextUrl.searchParams.get("tag")
-    if (tag && !KNOWN_TAGS.includes(tag as (typeof KNOWN_TAGS)[number])) {
+    if (tag && !(KNOWN_TAGS as readonly string[]).includes(tag)) {
         return NextResponse.json({ error: `Unknown tag. Expected one of: ${KNOWN_TAGS.join(", ")}` }, { status: 400 })
     }
 

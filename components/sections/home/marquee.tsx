@@ -1,6 +1,6 @@
-const words = ["Laravel", "Docker", "Next.js", "React.js", "PHP", "TypeScript", "Livewire", "Angular", "Golang", "Freelance", "Design"];
+import { getHome } from "@/lib/cms";
 
-function Group({ hidden }: { hidden?: boolean }) {
+function Group({ words, hidden }: { words: string[]; hidden?: boolean }) {
     return (
         <ul className="marquee-group" aria-hidden={hidden || undefined}>
             {words.map((w, i) => (
@@ -13,12 +13,14 @@ function Group({ hidden }: { hidden?: boolean }) {
     );
 }
 
-export default function Marquee() {
+export default async function Marquee() {
+    const { marquee: words } = await getHome();
+    if (words.length === 0) return null;
     return (
         <div className="marquee" aria-label="Technologies I work with">
             <div className="marquee-track">
-                <Group />
-                <Group hidden />
+                <Group words={words} />
+                <Group words={words} hidden />
             </div>
         </div>
     );

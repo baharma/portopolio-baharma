@@ -34,7 +34,7 @@ export default function BrowserMockup({ label, src, alt, ratio = "", priority }:
                     fill
                     sizes="(max-width: 900px) 100vw, 60vw"
                     priority={priority}
-                    unoptimized={!src}
+                    unoptimized={!src || src.startsWith("http")}
                 />
             </div>
         </div>

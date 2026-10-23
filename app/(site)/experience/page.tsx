@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ExperienceList from "@/components/sections/experience-list";
 import Breadcrumb from "@/components/ui/breadcrumb";
 import CtaBand from "@/components/ui/cta-band";
-import { experience } from "@/content/experience";
+import { getExperience } from "@/lib/cms";
 import { formatMonth } from "@/lib/format";
 
 export const revalidate = 86400; // durations are computed from today's date
@@ -13,13 +13,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/experience" },
 };
 
-export default function ExperiencePage() {
-  const current = experience.find((e) => !e.end);
-  const since = [...experience].sort((a, b) => a.start.localeCompare(b.start))[0];
+export default async function ExperiencePage() {
+  const { intro, items: experience } = await getExperience();
+  const current = experience.find((e) => !e.end && e.company);
+  const since = experience.filter((e) => e.start).sort((a, b) => a.start!.localeCompare(b.start!))[0];
   const stats: [string, string][] = [
     [String(experience.length), "Roles"],
-    [formatMonth(since.start), "Since"],
-    ...(current ? ([[current.company, "Now at"]] as [string, string][]) : []),
+    ...(since ? ([[formatMonth(since.start!), "Since"]] as [string, string][]) : []),
+    ...(current ? ([[current.company!, "Now at"]] as [string, string][]) : []),
   ];
   return (
     <>
@@ -28,7 +29,7 @@ export default function ExperiencePage() {
           <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Experience" }]} />
           <h1 className="display h1" data-hero>Where I&apos;ve <em>worked</em>.</h1>
           <p className="lead" data-hero>
-            Full-time and freelance roles building web products, from front-end interfaces to full-stack applications. Newest first.
+            {intro ?? "Full-time and freelance roles building web products, from front-end interfaces to full-stack applications."}
           </p>
           <dl className="stats" data-hero>
             {stats.map(([v, k]) => (
@@ -38,7 +39,7 @@ export default function ExperiencePage() {
         </div>
       </section>
       <div style={{ height: 0 }} />
-      <ExperienceList />
+      <ExperienceList experience={experience} />
       <CtaBand label="Want the full picture?" />
     </>
   );

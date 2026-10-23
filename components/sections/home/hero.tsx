@@ -1,16 +1,14 @@
 import { site } from "@/content/site";
+import { getContact, getHome } from "@/lib/cms";
 import AvailabilityBadge from "@/components/ui/availability-badge";
 import Button from "@/components/ui/button";
 import Portrait from "../portrait";
 
-const meta = [
-    ["Currently", site.currently],
-    ["Based in", site.location.city],
-    ["Focus", site.focus],
-    ["Open to", site.openTo],
-];
-
-export default function Hero() {
+export default async function Hero() {
+    const [home, contact] = await Promise.all([getHome(), getContact()]);
+    const meta: [string, string | undefined][] = home.currently.length
+        ? home.currently.map((c) => [c.label, c.value])
+        : [["Based in", contact.location]];
     return (
         <section className="hero grain" aria-labelledby="hero-name">
             <div className="container">
@@ -21,7 +19,7 @@ export default function Hero() {
                 <div className="grid12">
                     <div className="s7 hero-left">
                         <div data-hero><AvailabilityBadge /></div>
-                        <p className="lead" data-hero>{site.intro}</p>
+                        {home.intro && <p className="lead" data-hero>{home.intro}</p>}
                         <div className="btn-row" data-hero>
                             <Button href="#work">View projects →</Button>
                             <Button href="#contact" variant="secondary">Get in touch</Button>
@@ -32,7 +30,7 @@ export default function Hero() {
                     </div>
                 </div>
                 <dl className="meta-row" data-hero>
-                    {meta.map(([k, v]) => (
+                    {meta.filter(([, v]) => v).map(([k, v]) => (
                         <div key={k}>
                             <dt className="label">{k}</dt>
                             <dd>{v}</dd>

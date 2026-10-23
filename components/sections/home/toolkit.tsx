@@ -1,8 +1,11 @@
-import { toolCategories, tools } from "@/content/tools";
+import { getHome } from "@/lib/cms";
 import SectionLabel from "@/components/ui/section-label";
 import ToolkitGrid from "./toolkit-grid";
 
-export default function Toolkit() {
+export default async function Toolkit() {
+    const { tools } = await getHome();
+    if (tools.length === 0) return null;
+    const toolCategories = ["All", ...new Set(tools.map((t) => t.category))];
     return (
         <section className="section" aria-labelledby="tools-title">
             <div className="container">

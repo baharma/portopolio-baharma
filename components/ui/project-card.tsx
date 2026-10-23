@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Project } from "@/content/projects";
+import type { Project } from "@/lib/cms";
 import BrowserMockup from "./browser-mockup";
 import TagPills from "./tag-pill";
 
@@ -21,7 +21,7 @@ export default function ProjectCard({ project, featured }: { project: Project; f
                 <h3 className="card-title">
                     <Link href={href}>{project.title}</Link>
                 </h3>
-                <p className="card-desc">{project.description}</p>
+                {project.description && <p className="card-desc">{project.description}</p>}
                 <TagPills tags={project.tags} />
                 <div className="card-foot">
                     <span className="arrow-link">

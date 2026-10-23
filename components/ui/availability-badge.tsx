@@ -1,10 +1,11 @@
-import { site } from "@/content/site";
+import { getContact } from "@/lib/cms";
 
-export default function AvailabilityBadge() {
+export default async function AvailabilityBadge() {
+    const { availability } = await getContact();
     return (
         <span className="badge">
             <span className="dot-live" aria-hidden="true" />
-            {site.availability}
+            {availability}
         </span>
     );
 }

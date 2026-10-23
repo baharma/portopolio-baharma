@@ -1,4 +1,4 @@
-import type { Experience } from "@/content/experience";
+import type { Experience } from "@/lib/cms";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -7,12 +7,15 @@ export function formatMonth(ym: string) {
     return `${MONTHS[m - 1]} ${y}`;
 }
 
-export function formatRange(e: Pick<Experience, "start" | "end">) {
+/** Falls back to the CMS date label when the range can't be parsed. */
+export function formatRange(e: Pick<Experience, "start" | "end" | "dates">) {
+    if (!e.start) return e.dates ?? "";
     return `${formatMonth(e.start)} – ${e.end ? formatMonth(e.end) : "Present"}`;
 }
 
 /** Inclusive month count between start and end (or today for the current role). */
 export function formatDuration(e: Pick<Experience, "start" | "end">, now = new Date()) {
+    if (!e.start) return "";
     const [sy, sm] = e.start.split("-").map(Number);
     const [ey, em] = e.end ? e.end.split("-").map(Number) : [now.getFullYear(), now.getMonth() + 1];
     const total = (ey - sy) * 12 + (em - sm) + 1;

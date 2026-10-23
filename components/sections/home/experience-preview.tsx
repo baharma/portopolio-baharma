@@ -1,10 +1,12 @@
-import { experience } from "@/content/experience";
+import { getExperience } from "@/lib/cms";
 import { formatRange } from "@/lib/format";
 import Button from "@/components/ui/button";
 import SectionLabel from "@/components/ui/section-label";
 import TagPills from "@/components/ui/tag-pill";
 
-export default function ExperiencePreview() {
+export default async function ExperiencePreview() {
+    const { items: experience } = await getExperience();
+    if (experience.length === 0) return null;
     return (
         <section id="experience" className="section" aria-labelledby="exp-title">
             <div className="container">
@@ -17,12 +19,14 @@ export default function ExperiencePreview() {
                         <li key={e.id} className="tl-row grid12" data-reveal>
                             <p className="tl-date s3">{formatRange(e)}</p>
                             <div className={`tl-main s6${e.end ? "" : " current"}`}>
-                                <h3 className="tl-role">{e.role}</h3>
-                                <p className="tl-sub">
-                                    {e.company}
-                                    <span className={`pill${e.type === "Freelance" ? " pill-type" : ""}`}>{e.type}</span>
-                                </p>
-                                <ul className="bullets">{e.bullets.map((b) => <li key={b}>{b}</li>)}</ul>
+                                {e.role && <h3 className="tl-role">{e.role}</h3>}
+                                {(e.company || e.type) && (
+                                    <p className="tl-sub">
+                                        {e.company}
+                                        {e.type && <span className={`pill${e.type === "Freelance" ? " pill-type" : ""}`}>{e.type}</span>}
+                                    </p>
+                                )}
+                                {e.bullets.length > 0 && <ul className="bullets">{e.bullets.map((b) => <li key={b}>{b}</li>)}</ul>}
                             </div>
                             <div className="s3"><TagPills tags={e.stack} /></div>
                         </li>

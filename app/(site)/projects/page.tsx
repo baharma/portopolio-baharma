@@ -3,7 +3,7 @@ import ProjectsExplorer from "@/components/sections/projects-explorer";
 import Breadcrumb from "@/components/ui/breadcrumb";
 import Button from "@/components/ui/button";
 import CtaBand from "@/components/ui/cta-band";
-import { projects } from "@/content/projects";
+import { getProjects } from "@/lib/cms";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -12,7 +12,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/projects" },
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await getProjects();
   return (
     <>
       <section className="page-hero grain" style={{ borderBottom: 0 }}>

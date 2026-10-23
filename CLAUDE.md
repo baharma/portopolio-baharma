@@ -15,18 +15,21 @@ There is no test suite/runner configured in this repo. `next build` does not run
 
 ## Architecture
 
-Next.js 16 App Router personal portfolio (baharma.my.id), Tailwind v4 + GSAP. Content lives in typed files, not a CMS.
+Next.js 16 App Router personal portfolio (baharma.my.id), Tailwind v4 + GSAP. Content comes from a headless CMS API via `lib/cms.ts`.
 
 ### Layout of the repo
 
 - `app/(site)/` — all pages (`/`, `/experience`, `/about`, `/projects`, `/projects/[slug]`) under one layout (sticky `Navbar`, `Footer`, `Motion`, Person JSON-LD). `app/sitemap.ts`, `robots.ts`, `opengraph-image.tsx` are file-convention SEO routes. `next.config.ts` redirects the old `/project` and `/contacts` URLs.
-- `content/` — `site.ts`, `experience.ts`, `projects.ts`, `tools.ts`. Single source of truth. Missing facts are `undefined` with a `// TODO` (LinkedIn URL, `/cv.pdf`, project URLs/screenshots/learnings); the UI omits those spots instead of inventing data. Adding a project to `projects.ts` automatically adds its card, row, `/projects/[slug]` page and sitemap entry.
-- `components/ui/` (button, project-card, browser-mockup, cta-band, ...) and `components/sections/` (navbar, footer, `home/*`, `case-study/`, ...). `lib/format.ts` computes date ranges/durations (pages use `revalidate = 86400` because "current role" durations depend on today).
+- `content/site.ts` — static identity/nav/SEO facts (name, domain, github, nav). Everything else comes from the CMS.
+- `lib/cms.ts` — the data layer. Fetches `https://api.baharma.my.id/api/website/slug/baharma/page/{home,experience,about,projects,contact}` (override with `CMS_API_URL`; public GET, no auth; `fetch` with `revalidate: 3600` and the page name as tag) and normalizes it into `Experience`, `Project`, `Home`, `Contact`. Server components call `getExperience()/getProjects()/getHome()/getContact()` directly. The API drops unfilled sub-fields and wraps values as `{key,label,type,value}`, so the parsers are defensive and every getter returns empty values on failure; the UI omits whatever is missing. Field keys follow `cms-template.json`. Projects get their slug from the title; `/projects/[slug]` pages and the sitemap follow the CMS. `about` is not fetched (the page copy is hardcoded). The API still contains template data (Jordan Lee, example.com email) until the CMS is filled in. `/api/revalidate?secret=…&tag=<page>` busts a page's cache.
+- `components/ui/` (button, project-card, browser-mockup, cta-band, ...) and `components/sections/` (navbar, footer, `home/*`, `case-study/`, ...). `lib/format.ts` computes date ranges/durations (computes date ranges/durations from today's date).
 - Path alias `@/*` maps to the repo root (`@/content/...`, `@/components/...`).
 
 ### Legacy CMS code (unused by pages now)
 
-`src/` (sections, components, `src/service/api/*` with `unstable_cache` fetchers, `uitls/gsapUtils.ts`) and `app/api/{contact,revalidate}` are kept from the previous CMS-driven site but nothing in `app/(site)` imports them. `/api/contact` is still a working same-origin proxy (attaches `API_SECRET_KEY` server-side; any authenticated client write should go through such a route). Env vars: `NEXT_PUBLIC_API_URL`, `API_SECRET_KEY`, `REVALIDATE_SECRET` — only needed by that legacy code. Don't build new features on `src/`.
+`src/` (sections, components, `src/service/api/*` with `unstable_cache` fetchers, `uitls/gsapUtils.ts`) and `app/api/{contact,revalidate}` are kept from the previous CMS-driven site but nothing in `app/(site)` imports them. `/api/contact` is still a working same-origin proxy (attaches `API_SECRET_KEY` server-side; any authenticated client write should go through such a route). Env vars: `NEXT_PUBLIC_API_URL`, `API_SECRET_KEY` — only needed by that legacy code; `REVALIDATE_SECRET` is used by `/api/revalidate`. Don't build new features on `src/`.
+
+`AGENTS.md` documents only this legacy CMS architecture (`app/(main)`, `/[slug]`, `src/` conventions) and is outdated for the current site; trust this file where they disagree. `README.md` is unmodified create-next-app boilerplate.
 
 ### Styling
 
@@ -41,4 +44,4 @@ Next.js 16 App Router personal portfolio (baharma.my.id), Tailwind v4 + GSAP. Co
 
 ### Images
 
-`BrowserMockup` and `Portrait` use `next/image` with SVG placeholders in `public/placeholders/` (rendered `unoptimized`). Set a project's `cover`/`screens` in `content/projects.ts` (files under `public/`) to replace them; swap `PORTRAIT` in `components/sections/portrait.tsx` for a real photo.
+`BrowserMockup` and `Portrait` use `next/image` with SVG placeholders in `public/placeholders/` (rendered `unoptimized`). Project covers/screens come from the CMS `image_list` (remote URLs, rendered `unoptimized`); the placeholders show when none is set; swap `PORTRAIT` in `components/sections/portrait.tsx` for a real photo.

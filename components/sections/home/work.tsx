@@ -1,10 +1,11 @@
-import { projects } from "@/content/projects";
+import { getProjects } from "@/lib/cms";
 import Button from "@/components/ui/button";
 import ProjectCard from "@/components/ui/project-card";
 import SectionLabel from "@/components/ui/section-label";
 
-export default function Work() {
-    const [featured, ...rest] = [...projects].sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
+export default async function Work() {
+    const [featured, ...rest] = await getProjects();
+    if (!featured) return null;
     return (
         <section id="work" className="section" aria-labelledby="work-title">
             <div className="container">
