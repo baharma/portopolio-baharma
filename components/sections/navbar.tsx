@@ -43,9 +43,13 @@ export default function Navbar() {
 
                 <nav aria-label="Primary" className="nav-links">
                     {site.nav.map((l) => (
-                        <Link key={l.href} href={l.href} className="nav-link" aria-current={isActive(l.href) ? "page" : undefined}>
-                            {l.label}
-                        </Link>
+                        l.href.includes("#") ? (
+                            <a key={l.href} href={l.href} className="nav-link">{l.label}</a>
+                        ) : (
+                            <Link key={l.href} href={l.href} className="nav-link" aria-current={isActive(l.href) ? "page" : undefined}>
+                                {l.label}
+                            </Link>
+                        )
                     ))}
                 </nav>
 
@@ -76,10 +80,17 @@ export default function Navbar() {
                     <ul className="menu-links">
                         {site.nav.map((l, i) => (
                             <li key={l.href}>
-                                <Link href={l.href} onClick={() => setOpen(false)} aria-current={isActive(l.href) ? "page" : undefined}>
-                                    <span>{String(i + 1).padStart(2, "0")}</span>
-                                    {l.label}
-                                </Link>
+                                {l.href.includes("#") ? (
+                                    <a href={l.href} onClick={() => setOpen(false)}>
+                                        <span>{String(i + 1).padStart(2, "0")}</span>
+                                        {l.label}
+                                    </a>
+                                ) : (
+                                    <Link href={l.href} onClick={() => setOpen(false)} aria-current={isActive(l.href) ? "page" : undefined}>
+                                        <span>{String(i + 1).padStart(2, "0")}</span>
+                                        {l.label}
+                                    </Link>
+                                )}
                             </li>
                         ))}
                     </ul>

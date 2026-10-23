@@ -14,7 +14,7 @@ type Props = {
 
 export default function Button({ href, variant = "primary", children, external, full, className = "" }: Props) {
     const cls = `btn btn-${variant}${full ? " btn-full" : ""} ${className}`.trim();
-    if (external || /^(https?:|mailto:)/.test(href)) {
+    if (external || /^(https?:|mailto:|#)/.test(href)) {
         return (
             <a className={cls} href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
                 {children}
