@@ -19,7 +19,6 @@ export default async function Contact() {
     return (
         <section id="contact" className="section" aria-labelledby="contact-title">
             <div className="container">
-                <p className="label" data-reveal>— 05 · Contact</p>
                 <h2 id="contact-title" className="display contact-title" data-reveal>
                     Let&apos;s build something <em>good</em>.
                 </h2>

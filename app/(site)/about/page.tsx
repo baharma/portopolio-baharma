@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Portrait from "@/components/sections/portrait";
 import Breadcrumb from "@/components/ui/breadcrumb";
 import CtaBand from "@/components/ui/cta-band";
-import SectionLabel from "@/components/ui/section-label";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -49,8 +48,7 @@ export default function AboutPage() {
       <section className="section" aria-labelledby="do-title">
         <div className="container">
           <div className="section-head">
-            <SectionLabel n="01">Focus</SectionLabel>
-            <h2 id="do-title" className="display h2" data-reveal style={{ marginTop: 20 }}>What I <em>do</em></h2>
+            <h2 id="do-title" className="display h2" data-reveal>What I <em>do</em></h2>
           </div>
           <ul className="do-grid">
             {doing.map((d, i) => (
@@ -67,8 +65,7 @@ export default function AboutPage() {
       <section className="section" aria-labelledby="now-title">
         <div className="container">
           <div className="section-head">
-            <SectionLabel n="02">Now</SectionLabel>
-            <h2 id="now-title" className="display h2" data-reveal style={{ marginTop: 20 }}>Right <em>now</em></h2>
+            <h2 id="now-title" className="display h2" data-reveal>Right <em>now</em></h2>
           </div>
           <dl>
             {now.map(([k, v]) => (

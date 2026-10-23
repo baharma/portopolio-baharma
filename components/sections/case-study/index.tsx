@@ -5,7 +5,6 @@ import Breadcrumb from "@/components/ui/breadcrumb";
 import BrowserMockup from "@/components/ui/browser-mockup";
 import Button from "@/components/ui/button";
 import CtaBand from "@/components/ui/cta-band";
-import SectionLabel from "@/components/ui/section-label";
 
 export default function CaseStudy({ project: p, projects }: { project: Project; projects: Project[] }) {
     const { head, accent } = splitTitle(p.title);
@@ -17,15 +16,13 @@ export default function CaseStudy({ project: p, projects }: { project: Project; 
         ["Type", p.category],
         ["Stack", p.tags.join(", ")],
     ];
-    let n = 0;
-    const num = () => pad(++n);
 
     return (
         <>
             <section className="page-hero grain">
                 <div className="container">
                     <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Projects", href: "/projects" }, { label: p.title }]} />
-                    <p className="label" data-hero style={{ marginTop: 28, display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+                    <p className="kicker" data-hero style={{ marginTop: 28 }}>
                         {[p.category, p.year].filter(Boolean).join(" · ")}
                     </p>
                     <h1 className="display h1" data-hero>{head} <em>{accent}</em></h1>
@@ -49,7 +46,6 @@ export default function CaseStudy({ project: p, projects }: { project: Project; 
             {(p.description || (p.detail && p.detail.length > 0)) && (
                 <section className="section" aria-label="Overview">
                     <div className="container grid12">
-                        <div className="s12"><SectionLabel n={num()}>Overview</SectionLabel></div>
                         {p.description && <p className={`statement ${p.detail?.length ? "s7" : "s9"}`} data-reveal>{p.description}</p>}
                         {p.detail && p.detail.length > 0 && (
                             <div className="body s4 c9 muted" data-reveal>{p.detail.map((l) => <p key={l}>{l}</p>)}</div>
@@ -62,8 +58,7 @@ export default function CaseStudy({ project: p, projects }: { project: Project; 
                 <section className="section" aria-labelledby="screens-title">
                     <div className="container">
                         <div className="section-head">
-                            <SectionLabel n={num()}>Screens</SectionLabel>
-                            <h2 id="screens-title" className="display h2" data-reveal style={{ marginTop: 20 }}>A look <em>inside</em></h2>
+                            <h2 id="screens-title" className="display h2" data-reveal>A look <em>inside</em></h2>
                         </div>
                         <div className="screens">
                             {p.screens.map((s) => (

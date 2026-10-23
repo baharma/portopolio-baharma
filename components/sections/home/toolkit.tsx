@@ -1,5 +1,4 @@
 import { getHome } from "@/lib/cms";
-import SectionLabel from "@/components/ui/section-label";
 import ToolkitGrid from "./toolkit-grid";
 
 export default async function Toolkit() {
@@ -10,8 +9,7 @@ export default async function Toolkit() {
         <section className="section" aria-labelledby="tools-title">
             <div className="container">
                 <div className="section-head">
-                    <SectionLabel n="03">Toolkit</SectionLabel>
-                    <h2 id="tools-title" className="display h2" data-reveal style={{ marginTop: 20 }}>Tools I <em>reach for</em></h2>
+                    <h2 id="tools-title" className="display h2" data-reveal>Tools I <em>reach for</em></h2>
                 </div>
                 <div data-reveal>
                     <ToolkitGrid tools={tools} categories={toolCategories} />

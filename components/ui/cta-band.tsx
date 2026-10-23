@@ -12,7 +12,7 @@ export default async function CtaBand({ label, secondary }: Props) {
     return (
         <div className="container cta-wrap">
             <section className="cta grain" aria-labelledby="cta-title" data-reveal>
-                <p className="label">— {label}</p>
+                <p className="kicker">{label}</p>
                 <h2 id="cta-title" className="display">
                     Let&apos;s build something <em>good</em>.
                 </h2>

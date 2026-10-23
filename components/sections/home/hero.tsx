@@ -12,7 +12,7 @@ export default async function Hero() {
     return (
         <section className="hero grain" aria-labelledby="hero-name">
             <div className="container">
-                <p className="label" data-hero>— Portfolio · {site.year} · {site.domain}</p>
+                <p className="kicker" data-hero>Portfolio, {site.year}</p>
                 <h1 id="hero-name" className="display h-hero hero-name" data-hero>
                     Aditya Dharma<span className="dot">.</span>
                 </h1>
