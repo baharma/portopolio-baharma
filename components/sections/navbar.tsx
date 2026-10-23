@@ -13,7 +13,7 @@ const DownloadIcon = () => (
     </svg>
 );
 
-export default function Navbar() {
+export default function Navbar({ availability }: { availability: string }) {
     const pathname = usePathname();
     const [open, setOpen] = useState(false);
     const closeRef = useRef<HTMLButtonElement>(null);
@@ -94,7 +94,7 @@ export default function Navbar() {
                             </li>
                         ))}
                     </ul>
-                    <AvailabilityBadge />
+                    <AvailabilityBadge text={availability} />
                     <Button href={site.cvUrl} external full>
                         <DownloadIcon /> Download CV
                     </Button>

@@ -18,7 +18,7 @@ export default async function Hero() {
                 </h1>
                 <div className="grid12">
                     <div className="s7 hero-left">
-                        <div data-hero><AvailabilityBadge /></div>
+                        <div data-hero><AvailabilityBadge text={contact.availability} /></div>
                         {home.intro && <p className="lead" data-hero>{home.intro}</p>}
                         <div className="btn-row" data-hero>
                             <Button href="#work">View projects →</Button>

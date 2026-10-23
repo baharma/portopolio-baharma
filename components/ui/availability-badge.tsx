@@ -1,11 +1,8 @@
-import { getContact } from "@/lib/cms";
-
-export default async function AvailabilityBadge() {
-    const { availability } = await getContact();
+export default function AvailabilityBadge({ text }: { text: string }) {
     return (
         <span className="badge">
             <span className="dot-live" aria-hidden="true" />
-            {availability}
+            {text}
         </span>
     );
 }
