@@ -5,7 +5,8 @@ import { site } from "@/content/site";
 
 const API = process.env.CMS_API_URL ?? "https://api.baharma.my.id/api";
 const SLUG = "baharma";
-const REVALIDATE = 3600;
+// Fallback window; the CMS webhook (POST /api/revalidate) refreshes content immediately.
+const REVALIDATE = 300;
 
 export const CMS_TAGS = ["home", "experience", "about", "projects", "contact"] as const;
 export type CmsPage = (typeof CMS_TAGS)[number];
