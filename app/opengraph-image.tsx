@@ -14,7 +14,7 @@ export default function OpengraphImage() {
           {site.name}
           <span style={{ color: "#1F3A68" }}>.</span>
         </div>
-        <div style={{ fontSize: 34, color: "#262E3C" }}>Full-stack software engineer · Bali, Indonesia</div>
+        <div style={{ fontSize: 34, color: "#262E3C" }}>{`${site.title} · Bali, Indonesia`}</div>
       </div>
     ),
     size,

@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     title: project.title,
     description: project.description ?? undefined,
     alternates: { canonical: `/projects/${project.slug}` },
-    openGraph: { title: project.title, description: project.description ?? undefined, url: `/projects/${project.slug}` },
+    openGraph: { title: project.title, description: project.description ?? undefined, url: `/projects/${project.slug}`, images: project.cover ? [project.cover] : undefined },
   };
 }
 

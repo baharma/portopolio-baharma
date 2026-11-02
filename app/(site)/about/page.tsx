@@ -3,6 +3,7 @@ import Portrait from "@/components/sections/portrait";
 import Breadcrumb from "@/components/ui/breadcrumb";
 import CtaBand from "@/components/ui/cta-band";
 import { site } from "@/content/site";
+import { getAbout } from "@/lib/cms";
 
 export const metadata: Metadata = {
   title: "About",
@@ -24,7 +25,8 @@ const now: [string, string][] = [
   ["Open to", `${site.openTo}, available remote`],
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const { education } = await getAbout();
   return (
     <>
       <section className="page-hero grain">
@@ -60,6 +62,28 @@ export default function AboutPage() {
           </ul>
         </div>
       </section>
+
+      {education.length > 0 && (
+        <section className="section" aria-labelledby="edu-title">
+          <div className="container">
+            <div className="section-head">
+              <h2 id="edu-title" className="display h2" data-reveal>Education &amp; <em>learning</em></h2>
+            </div>
+            <dl>
+              {education.map((e) => (
+                <div key={e.name} className="def-row" data-reveal>
+                  <dt className="label">{e.dates}</dt>
+                  <dd>
+                    {e.name}
+                    {e.major && <span className="label" style={{ display: "block", marginTop: 12 }}>{e.major}</span>}
+                    {e.details.map((l) => <span key={l} className="body muted" style={{ display: "block", marginTop: 8, fontFamily: "inherit", fontSize: 16, lineHeight: 1.5 }}>{l}</span>)}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+      )}
 
       <section className="section" aria-labelledby="now-title">
         <div className="container">

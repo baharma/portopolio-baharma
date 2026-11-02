@@ -11,7 +11,7 @@ npm run start    # run production build
 npm run lint     # eslint (flat config in eslint.config.mjs)
 ```
 
-There is no test suite/runner configured in this repo. `next build` does not run lint in Next 16, so run `npm run lint` and `npx tsc --noEmit` (no script for it) separately. Lint currently has pre-existing errors (mostly `no-explicit-any` and unused imports in `src/sections/home/*`); don't add new ones.
+There is no test suite/runner configured in this repo. `next build` does not run lint in Next 16, so run `npm run lint` and `npx tsc --noEmit` (no script for it) separately. Lint currently has pre-existing errors, all in the legacy `src/` tree (mostly `no-explicit-any` and unused imports); the new code is lint-clean, keep it that way.
 
 ## Architecture
 
@@ -21,13 +21,17 @@ Next.js 16 App Router personal portfolio (baharma.my.id), Tailwind v4 + GSAP. Co
 
 - `app/(site)/` — all pages (`/`, `/experience`, `/about`, `/projects`, `/projects/[slug]`) under one layout (sticky `Navbar`, `Footer`, `Motion`, Person JSON-LD). `app/sitemap.ts`, `robots.ts`, `opengraph-image.tsx` are file-convention SEO routes. `next.config.ts` redirects the old `/project` and `/contacts` URLs.
 - `content/site.ts` — static identity/nav/SEO facts (name, domain, github, nav). Everything else comes from the CMS.
-- `lib/cms.ts` — the data layer. Fetches `https://api.baharma.my.id/api/website/slug/baharma/page/{home,experience,about,projects,contact}` (override with `CMS_API_URL`; public GET, no auth; `fetch` with `revalidate: 300` and the page name as tag) and normalizes it into `Experience`, `Project`, `Home`, `Contact`. Server components call `getExperience()/getProjects()/getHome()/getContact()` directly. The API drops unfilled sub-fields and wraps values as `{key,label,type,value}`, so the parsers are defensive and every getter returns empty values on failure; the UI omits whatever is missing. Field keys follow `cms-template.json`. Projects get their slug from the title; `/projects/[slug]` pages and the sitemap follow the CMS. `about` is not fetched (the page copy is hardcoded). The API still contains template data (Jordan Lee, example.com email) until the CMS is filled in. `/api/revalidate` busts the cache (GET `?secret=…&tag=<page>`, or POST with an `x-revalidate-secret` header as the CMS save webhook).
-- `components/ui/` (button, project-card, browser-mockup, cta-band, ...) and `components/sections/` (navbar, footer, `home/*`, `case-study/`, ...). `lib/format.ts` computes date ranges/durations (computes date ranges/durations from today's date).
+- `lib/cms.ts` — the data layer (server-only). Base URL is `CMS_API_URL ?? API_SECRET ?? https://api.baharma.my.id/api` (yes, `API_SECRET` holds a base URL, not a secret). Pages come from `{base}/website/slug/baharma/page/{home,experience,contact,projects}` (public GET, no auth; `fetch` with `revalidate: 300` and the page name as cache tag) and are normalized into `Experience`, `Home`, `Contact`. Server components call `getExperience()/getProjects()/getProject(slug)/getHome()/getContact()` directly. The API drops unfilled sub-fields and wraps values as `{key,label,type,value}`, so the parsers are defensive and every getter returns empty values on failure; the UI omits whatever is missing. Field keys follow `cms-template.json`. `about` is fetched only for `getAbout()` (education list); the rest of the about page copy is hardcoded.
+- Projects: `getProjects()` first reads the product API (`{base}/product?website_id=13`, needs the `API_SECRET_KEY` bearer token; fields under `description.value.project`) and only falls back to the CMS `projects` page (`name_project`, `image_list`, ...) when that token is missing or the call fails. Slugs come from the product `slug` or the title, de-duplicated with `-2`, `-3`; `/projects/[slug]` and the sitemap follow this list.
+- `/api/revalidate` busts the cache with `revalidateTag(tag, { expire: 0 })` (immediate, not stale-while-revalidate): GET `?secret=…[&tag=<page>]`, or POST with an `x-revalidate-secret` header as the CMS save webhook. No tag = all `CMS_TAGS`.
+- `components/ui/` (button, project-card, browser-mockup, cta-band, ...) and `components/sections/` (navbar, footer, `home/*`, `case-study/`, ...). `lib/format.ts` computes date ranges/durations from today's date.
 - Path alias `@/*` maps to the repo root (`@/content/...`, `@/components/...`).
 
 ### Legacy CMS code (unused by pages now)
 
-`src/` (sections, components, `src/service/api/*` with `unstable_cache` fetchers, `uitls/gsapUtils.ts`) and `app/api/{contact,revalidate}` are kept from the previous CMS-driven site but nothing in `app/(site)` imports them. `/api/contact` is still a working same-origin proxy (attaches `API_SECRET` server-side; any authenticated client write should go through such a route). Env vars: `API_SECRET` (base URL: optional `CMS_API_URL`) — only needed by that legacy code; `REVALIDATE_SECRET` is used by `/api/revalidate`. Don't build new features on `src/`.
+`src/` (sections, components, `src/service/api/*`, `uitls/gsapUtils.ts`) is kept from the previous CMS-driven site; nothing in `app/(site)` imports it. The one live dependency is `app/api/contact`, a same-origin proxy that uses `src/service/api/http.ts` (axios, base URL `API_SECRET`, `Authorization: Bearer API_SECRET_KEY`) to POST to the email API; any authenticated client write should go through such a server route. Don't build new features on `src/`.
+
+Env vars (`.env`, gitignored): `API_SECRET` (API base URL), `API_SECRET_KEY` (bearer token for the product and email APIs), `REVALIDATE_SECRET` (`/api/revalidate`), optional `CMS_API_URL` (overrides the base URL in `lib/cms.ts` only).
 
 `AGENTS.md` documents only this legacy CMS architecture (`app/(main)`, `/[slug]`, `src/` conventions) and is outdated for the current site; trust this file where they disagree. `README.md` is unmodified create-next-app boilerplate.
 
@@ -44,4 +48,4 @@ Next.js 16 App Router personal portfolio (baharma.my.id), Tailwind v4 + GSAP. Co
 
 ### Images
 
-`BrowserMockup` and `Portrait` use `next/image` with SVG placeholders in `public/placeholders/` (rendered `unoptimized`). Project covers/screens come from the CMS `image_list` (remote URLs, rendered `unoptimized`); the placeholders show when none is set; swap `PORTRAIT` in `components/sections/portrait.tsx` for a real photo.
+`BrowserMockup` and `Portrait` use `next/image` with SVG placeholders in `public/placeholders/` (rendered `unoptimized`). Project covers/screens are remote URLs from the product API (`image`/`images`) or the CMS `image_list`, rendered `unoptimized`; the placeholders show when none is set; swap `PORTRAIT` in `components/sections/portrait.tsx` for a real photo.

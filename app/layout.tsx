@@ -22,7 +22,7 @@ const description = site.intro;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: `${site.name} — Full-stack software engineer`, template: `%s — ${site.name}` },
+  title: { default: `${site.name} — ${site.title}`, template: `%s — ${site.name}` },
   description,
   openGraph: { type: "website", siteName: site.name, title: site.name, description, url: site.url },
   twitter: { card: "summary_large_image", title: site.name, description },

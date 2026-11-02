@@ -12,6 +12,7 @@ export default function CaseStudy({ project: p, projects }: { project: Project; 
     const next = projects[(idx + 1) % projects.length];
     const pad = (n: number) => String(n).padStart(2, "0");
     const meta: [string, string | undefined][] = [
+        ["Role", p.role],
         ["Year", p.year ? String(p.year) : undefined],
         ["Type", p.category],
         ["Stack", p.tags.join(", ")],
@@ -26,9 +27,10 @@ export default function CaseStudy({ project: p, projects }: { project: Project; 
                         {[p.category, p.year].filter(Boolean).join(" · ")}
                     </p>
                     <h1 className="display h1" data-hero>{head} <em>{accent}</em></h1>
-                    {p.liveUrl && (
+                    {(p.liveUrl || p.githubUrl) && (
                         <div className="btn-row" style={{ marginTop: 32 }} data-hero>
-                            <Button href={p.liveUrl} external>Live demo ↗</Button>
+                            {p.liveUrl && <Button href={p.liveUrl} external>Live demo ↗</Button>}
+                            {p.githubUrl && <Button href={p.githubUrl} external variant="secondary">GitHub ↗</Button>}
                         </div>
                     )}
                     <dl className="cs-meta" data-hero>
@@ -50,6 +52,17 @@ export default function CaseStudy({ project: p, projects }: { project: Project; 
                         {p.detail && p.detail.length > 0 && (
                             <div className="body s4 c9 muted" data-reveal>{p.detail.map((l) => <p key={l}>{l}</p>)}</div>
                         )}
+                    </div>
+                </section>
+            )}
+
+            {p.results && p.results.length > 0 && (
+                <section className="section" aria-labelledby="results-title">
+                    <div className="container">
+                        <div className="section-head">
+                            <h2 id="results-title" className="display h2" data-reveal>The <em>results</em></h2>
+                        </div>
+                        <ul className="body" data-reveal>{p.results.map((r) => <li key={r}>{r}</li>)}</ul>
                     </div>
                 </section>
             )}

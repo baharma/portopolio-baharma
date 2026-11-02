@@ -5,11 +5,12 @@ export const site = {
     domain: "baharma.my.id",
     url: "https://baharma.my.id",
     year: 2026,
+    title: "Fullstack Developer", // keep identical to the CV headline
     email: "bagusaditya1899@gmail.com",
     github: { handle: "@adityadharma", url: "https://github.com/adityadharma" },
     linkedin: {
         label: "Ngurah Aditya",
-        url: undefined as string | undefined, // TODO: LinkedIn profile URL
+        url: "https://www.linkedin.com/in/ngurah-aditya",
     },
     // TODO: switch to "/cv.pdf" once public/cv.pdf exists. Until then this is the CV link the site already used.
     cvUrl: "https://docs.google.com/document/d/e/2PACX-1vRMS2DgLLAcl08YZj37S4pIARkkEApXsQ2YMldiwy3sZt_fvIG2wQBwfkrIzR1rVH-ZGDxEtGN_GGyy/pub",

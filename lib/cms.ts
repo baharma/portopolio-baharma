@@ -141,6 +141,20 @@ export async function getExperience(): Promise<{ intro?: string; items: Experien
     return { intro: data?.description ? lines(data.description).join(" ") || undefined : undefined, items };
 }
 
+/* ---------- about ---------- */
+
+export type Education = { name: string; major?: string; dates?: string; details: string[] };
+
+export async function getAbout(): Promise<{ education: Education[] }> {
+    const data = await fetchPage("about");
+    const education = list(data?.schoold).flatMap((raw): Education[] => {
+        const r = record(raw);
+        const name = str(r.name);
+        return name ? [{ name, major: str(r.major), dates: str(r.timeline), details: lines(r.description) }] : [];
+    });
+    return { education };
+}
+
 /* ---------- projects ---------- */
 
 export type Project = {
@@ -153,6 +167,7 @@ export type Project = {
     year?: number;
     description?: string;
     detail?: string[];
+    results?: string[]; // measurable outcomes, from product `results` (or `metrics`)
     tags: string[];
     liveUrl?: string;
     githubUrl?: string;
@@ -203,6 +218,7 @@ function fromProduct(raw: Raw): ProjectDraft | null {
         year: yearOf(period),
         description: str(p.summary),
         detail: lines(p.description),
+        results: strings(p.results ?? p.metrics),
         tags: strings(p.tech_stack),
         liveUrl: str(p.live_url),
         githubUrl: str(p.github_url),
